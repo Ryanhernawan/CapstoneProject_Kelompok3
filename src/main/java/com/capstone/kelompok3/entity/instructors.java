@@ -7,18 +7,15 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "images")
-public class Images {
-
+@Table(name = "instructors")
+public class instructors {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
-    private String description;
-
-    private String link_image;
+    private String contact;
+    private String email;
     private Date created_at;
     private Date updated_at;
-
 }
