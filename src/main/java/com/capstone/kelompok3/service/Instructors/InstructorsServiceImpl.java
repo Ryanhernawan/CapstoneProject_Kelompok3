@@ -1,4 +1,10 @@
 package com.capstone.kelompok3.service.Instructors;
 
-public class InstructorsServiceImpl {
+
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+
+@Service
+@AllArgsConstructor
+public class InstructorsServiceImpl implements InstructorsService{
 }
