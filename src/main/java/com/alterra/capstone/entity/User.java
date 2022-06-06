@@ -1,4 +1,4 @@
-package com.capstone.kelompok3.entity;
+package com.alterra.capstone.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;

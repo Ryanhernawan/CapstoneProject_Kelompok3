@@ -1,25 +1,24 @@
-package com.capstone.kelompok3.entity;
+package com.alterra.capstone.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "booking")
-public class Booking {
+@Table(name = "instructors")
+public class Instructor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_Booking", nullable = false)
+    @Column(name = "id_instructor", nullable = false)
     private Integer id;
 
-    @Column(name = "is_booked")
-    private Boolean isBooked;
+    @Column(name = "name")
+    private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_user")
-    private User idUser;
+    @Column(name = "contact")
+    private String contact;
 
-    @Column(name = "total_price")
-    private Integer totalPrice;
+    @Column(name = "email")
+    private String email;
 
     @Column(name = "created_at")
     private LocalDate createdAt;
@@ -35,28 +34,28 @@ public class Booking {
         this.id = id;
     }
 
-    public Boolean getIsBooked() {
-        return isBooked;
+    public String getName() {
+        return name;
     }
 
-    public void setIsBooked(Boolean isBooked) {
-        this.isBooked = isBooked;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public User getIdUser() {
-        return idUser;
+    public String getContact() {
+        return contact;
     }
 
-    public void setIdUser(User idUser) {
-        this.idUser = idUser;
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 
-    public Integer getTotalPrice() {
-        return totalPrice;
+    public String getEmail() {
+        return email;
     }
 
-    public void setTotalPrice(Integer totalPrice) {
-        this.totalPrice = totalPrice;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public LocalDate getCreatedAt() {
