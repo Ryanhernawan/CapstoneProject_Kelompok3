@@ -8,20 +8,20 @@ import java.time.LocalDate;
 @Data
 @Entity
 @Table(name = "class")
-public class Class {
+public class GymClass {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_class", nullable = false)
     private Long id;
 
-    @MapsId
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_class", nullable = false)
-    private Booking booking;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_user")
-    private User idUser;
+//    @MapsId
+//    @OneToOne(fetch = FetchType.LAZY, optional = false)
+//    @JoinColumn(name = "id_class", nullable = false)
+//    private Booking booking;
+//
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "id_user")
+//    private User idUser;
 
     @Column(name = "name")
     private String name;
@@ -41,9 +41,9 @@ public class Class {
     @Column(name = "type")
     private String type;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_instructor")
-    private Instructor idInstructor;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "id_instructor")
+//    private Instructor idInstructor;
 
     @Column(name = "price")
     private Integer price;
