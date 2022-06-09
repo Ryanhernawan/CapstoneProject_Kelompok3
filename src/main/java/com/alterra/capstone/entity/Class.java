@@ -1,8 +1,13 @@
 package com.alterra.capstone.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "class")
 public class Class {
@@ -18,7 +23,7 @@ public class Class {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_user")
-    private User idUser;
+    private User user;
 
     @Column(name = "name")
     private String name;
@@ -53,117 +58,5 @@ public class Class {
 
     @Column(name = "updated_at")
     private LocalDate updatedAt;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Booking getBooking() {
-        return booking;
-    }
-
-    public void setBooking(Booking booking) {
-        this.booking = booking;
-    }
-
-    public User getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(User idUser) {
-        this.idUser = idUser;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public LocalDate getStartAt() {
-        return startAt;
-    }
-
-    public void setStartAt(LocalDate startAt) {
-        this.startAt = startAt;
-    }
-
-    public LocalDate getEndAt() {
-        return endAt;
-    }
-
-    public void setEndAt(LocalDate endAt) {
-        this.endAt = endAt;
-    }
-
-    public Integer getQtyUsers() {
-        return qtyUsers;
-    }
-
-    public void setQtyUsers(Integer qtyUsers) {
-        this.qtyUsers = qtyUsers;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public Instructor getIdInstructor() {
-        return idInstructor;
-    }
-
-    public void setIdInstructor(Instructor idInstructor) {
-        this.idInstructor = idInstructor;
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public LocalDate getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDate createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDate getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDate updatedAt) {
-        this.updatedAt = updatedAt;
-    }
 
 }
