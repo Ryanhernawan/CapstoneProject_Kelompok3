@@ -1,37 +1,38 @@
-package com.alterra.capstone.service;
+package com.alterra.capstone.service.impl;
 
-import com.alterra.capstone.entity.GymClass;
+import com.alterra.capstone.entity.Class;
 import com.alterra.capstone.repository.ClassRepository;
+import com.alterra.capstone.service.ClassService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
 @AllArgsConstructor
-public class ClassServiceImpl implements ClassService{
+public class ClassServiceImpl implements ClassService {
 
     private final ClassRepository repository;
 
 
     @Override
-    public List<GymClass> getAllClass() {
+    public List<Class> getAllClass() {
         return repository.findAll();
     }
 
     @Override
-    public GymClass getClassById(Long id) {
-        GymClass gymClass = new GymClass();
+    public Class getClassById(Long id) {
+        Class gymClass = new Class();
         gymClass = repository.findById(id).orElse(null);
         return gymClass;
     }
 
     @Override
-    public GymClass createNewClass(GymClass payload) {
+    public Class createNewClass(Class payload) {
         return repository.save(payload);
     }
 
     @Override
-    public GymClass updateClass(GymClass payload) {
+    public Class updateClass(Class payload) {
         return repository.save(payload);
     }
 
@@ -39,4 +40,9 @@ public class ClassServiceImpl implements ClassService{
     public void deleteClasById(Long id) {
         repository.deleteById(id);
     }
+
+//    @Override
+//    public Class findClassByUser_Id(Long user) {
+//        return repository.findClassByUser_Id(user);
+//    }
 }

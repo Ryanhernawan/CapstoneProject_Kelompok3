@@ -1,27 +1,33 @@
 package com.alterra.capstone.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.util.Date;
 
 @Data
 @Entity
 @Table(name = "class")
-public class GymClass {
+public class Class {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_class", nullable = false)
     private Long id;
 
-//    @MapsId
-//    @OneToOne(fetch = FetchType.LAZY, optional = false)
-//    @JoinColumn(name = "id_class", nullable = false)
-//    private Booking booking;
-//
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "id_user")
-//    private User idUser;
+    @MapsId
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_class", nullable = false)
+    private Booking booking;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_user")
+    private User user;
 
     @Column(name = "name")
     private String name;
@@ -38,12 +44,13 @@ public class GymClass {
     @Column(name = "qty_users")
     private Integer qtyUsers;
 
+    // type offline or online
     @Column(name = "type")
     private String type;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "id_instructor")
-//    private Instructor idInstructor;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_instructor")
+    private Instructor idInstructor;
 
     @Column(name = "price")
     private Integer price;
@@ -52,10 +59,13 @@ public class GymClass {
     private String location;
 
     @Column(name = "created_at")
-    private LocalDate createdAt;
+    @CreationTimestamp
+    private OffsetDateTime createdAt;
 
     @Column(name = "updated_at")
-    private LocalDate updatedAt;
+    @UpdateTimestamp
+    private OffsetDateTime updatedAt;
+
 
 
 
