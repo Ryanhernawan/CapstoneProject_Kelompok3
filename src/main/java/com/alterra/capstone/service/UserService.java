@@ -6,9 +6,15 @@ import com.alterra.capstone.payload.UserPayload;
 import java.util.List;
 
 public interface UserService {
-    User register(UserPayload userPayload);
+    User registerAsSuperAdmin(UserPayload userPayload);
+    User registerAsAdmin(UserPayload userPayload);
+    User registerAsUser(UserPayload userPayload);
     User updatePassword(Long id, UserPayload userPayload);
+    User updateUser(Long id, UserPayload userPayload);
     List<User> getAllUser();
-    User getUserByid(Long id);
-    User deleteUser(Long id);
+    User getUsersById(Long id);
+    List<User> getUserByRoleAdmin();
+    List<User> getUserByRoleSuperAdmin();
+    List<User> getUserByRoleUser();
+    void deleteUser(Long id);
 }

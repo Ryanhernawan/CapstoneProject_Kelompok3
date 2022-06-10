@@ -1,5 +1,6 @@
 package com.alterra.capstone.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -39,7 +40,7 @@ public class User {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_role")
-    private Role idRole;
+    private Role role;
 
     @Column(name = "created_at")
     @CreationTimestamp
@@ -48,5 +49,4 @@ public class User {
     @Column(name = "updated_at")
     @UpdateTimestamp
     private OffsetDateTime updatedAt;
-
 }

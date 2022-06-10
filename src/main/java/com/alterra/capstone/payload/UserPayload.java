@@ -13,7 +13,7 @@ public class UserPayload {
     private String contact;
     private String username;
     private String password;
-    private Integer id_role;
+    private Integer id_role = 2;
     private OffsetDateTime created_at;
     private OffsetDateTime updated_at;
 
