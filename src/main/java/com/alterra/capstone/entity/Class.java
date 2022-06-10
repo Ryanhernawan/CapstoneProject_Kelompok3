@@ -17,7 +17,7 @@ import java.util.Date;
 public class Class {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_class", nullable = false)
+    @Column(name = "id", nullable = false)
     private Long id;
 
     @MapsId
