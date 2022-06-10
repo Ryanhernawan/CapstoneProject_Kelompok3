@@ -50,7 +50,7 @@ public class UserController {
     private BaseResponse<User> getUserAsAdmin(){
         BaseResponse baseResponse = new BaseResponse();
         baseResponse.setSuccess(true);
-        baseResponse.setMessage("Get User as SuperAdmin");
+        baseResponse.setMessage("Get User as Admin");
         baseResponse.setData(userService.getUserByRoleAdmin());
         return baseResponse;
     }
@@ -60,7 +60,7 @@ public class UserController {
     private BaseResponse<User> getUserAsUser(){
         BaseResponse baseResponse = new BaseResponse();
         baseResponse.setSuccess(true);
-        baseResponse.setMessage("Get User as SuperAdmin");
+        baseResponse.setMessage("Get User");
         baseResponse.setData(userService.getUserByRoleUser());
         return baseResponse;
     }
@@ -97,7 +97,7 @@ public class UserController {
     // put mapping by ID hanya untuk Superadmin dan User
     // superadmin untuk edit data admin.
     // user edit data user itu sendiri
-    @PutMapping("{/id}")
+    @PutMapping("{id}")
     public BaseResponse<User> editUser(@PathVariable Long id, @RequestBody UserPayload userPayload){
         BaseResponse baseResponse = new BaseResponse();
         baseResponse.setSuccess(true);

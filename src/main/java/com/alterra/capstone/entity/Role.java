@@ -3,6 +3,8 @@ package com.alterra.capstone.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -22,9 +24,11 @@ public class Role {
     private String name;
 
     @Column(name = "created_at")
+    @CreationTimestamp
     private LocalDate createdAt;
 
     @Column(name = "updated_at")
+    @UpdateTimestamp
     private LocalDate updatedAt;
 
 }
