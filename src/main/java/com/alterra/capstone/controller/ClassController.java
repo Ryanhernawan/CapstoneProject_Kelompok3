@@ -34,6 +34,36 @@ public class ClassController {
         return ResponseEntity.ok(baseResponse);
     }
 
+    // GET CLAS BY USER ID
+    @GetMapping("/{user_id}")
+    public ResponseEntity<?> findClassByUser_Id(@PathVariable("user_id") Long user){
+        BaseResponse<List<Class>> baseResponse = new BaseResponse<>();
+        baseResponse.setSuccess(true);
+        baseResponse.setMessage("Success Get Class By User Id");
+        baseResponse.setData(List.of(service.findClassByUser_Id(user)));
+        return ResponseEntity.ok(baseResponse);
+    }
+
+    // GET CLASS TYPE OFFLINE
+    @GetMapping("/offline")
+    public ResponseEntity<?> getClassTypeOffline(){
+        BaseResponse<List<Class>> baseResponse = new BaseResponse<>();
+        baseResponse.setSuccess(true);
+        baseResponse.setMessage("Success Get Class Type Offline");
+        baseResponse.setData(service.getClassTypeOffline());
+        return ResponseEntity.ok(baseResponse);
+    }
+
+    // GET CLASS TYPE ONLINE
+    @GetMapping("/online")
+    public ResponseEntity<?> getClassTypeOnline(){
+        BaseResponse<List<Class>> baseResponse = new BaseResponse<>();
+        baseResponse.setSuccess(true);
+        baseResponse.setMessage("Success Get Class Type Online");
+        baseResponse.setData(service.getClassTypeOnline());
+        return ResponseEntity.ok(baseResponse);
+    }
+
     @PostMapping
     public ResponseEntity<?> createNewClass(@RequestBody Class payload){
         BaseResponse<Class> baseResponse = new BaseResponse<>();
