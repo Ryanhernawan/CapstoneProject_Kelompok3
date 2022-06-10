@@ -10,7 +10,9 @@ public interface ClassService {
     Class createNewClass(Class payload);
     Class updateClass(Class payload);
     void deleteClasById(Long id);
-//    Class findClassByUser_Id(Long user);
+    Class findClassByUser_Id(Long user);
+    List<Class> getClassTypeOffline();
+    List<Class> getClassTypeOnline();
 
 
 

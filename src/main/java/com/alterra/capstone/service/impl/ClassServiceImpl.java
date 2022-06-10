@@ -41,8 +41,19 @@ public class ClassServiceImpl implements ClassService {
         repository.deleteById(id);
     }
 
-//    @Override
-//    public Class findClassByUser_Id(Long user) {
-//        return repository.findClassByUser_Id(user);
-//    }
+    @Override
+    public Class findClassByUser_Id(Long user) {
+        return repository.findClassByUser_Id(user);
+    }
+
+    @Override
+    public List<Class> getClassTypeOffline() {
+        return repository.getClassTypeOffline();
+    }
+
+    @Override
+    public List<Class> getClassTypeOnline() {
+        return repository.getClassTypeOnline();
+    }
+
 }
