@@ -25,8 +25,8 @@ public class ClassController {
         return ResponseEntity.ok(baseResponse);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getClassById(@PathVariable("id") Long id){
+    @GetMapping("/{id_class}")
+    public ResponseEntity<?> getClassById(@PathVariable("id_class") Long id){
         BaseResponse<List<Class>> baseResponse = new BaseResponse<>();
         baseResponse.setSuccess(true);
         baseResponse.setMessage("Success Get Class By Id");

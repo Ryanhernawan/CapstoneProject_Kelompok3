@@ -17,16 +17,12 @@ import java.util.Date;
 public class Class {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id_class")
     private Long id;
 
-    @MapsId
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_class", nullable = false)
-    private Booking booking;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_user")
+    @ManyToOne
+    @JoinColumn(name = "id_user", referencedColumnName = "id_user")
     private User user;
 
     @Column(name = "name")
@@ -48,8 +44,8 @@ public class Class {
     @Column(name = "type")
     private String type;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_instructor")
+    @ManyToOne
+    @JoinColumn(name = "id_instructor", referencedColumnName = "id_instructor")
     private Instructor idInstructor;
 
     @Column(name = "price")

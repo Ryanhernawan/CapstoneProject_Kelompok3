@@ -11,7 +11,11 @@ public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_Booking", nullable = false)
-    private Long id;
+    private Integer id;
+
+    @OneToOne
+    @JoinColumn(name = "id_class")
+    private Class idClass;
 
     @Column(name = "is_booked")
     private Boolean isBooked;
@@ -28,7 +32,6 @@ public class Booking {
 
     @Column(name = "updated_at")
     private LocalDate updatedAt;
-
 
 
 }

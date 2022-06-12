@@ -31,8 +31,8 @@ public class User {
     @Column(name = "password", length = 10)
     private String password;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_role")
+    @ManyToOne
+    @JoinColumn(name = "id_role", referencedColumnName = "id_role")
     private Role idRole;
 
     @Column(name = "created_at")
