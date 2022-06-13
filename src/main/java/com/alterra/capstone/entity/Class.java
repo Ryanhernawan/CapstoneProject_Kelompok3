@@ -3,9 +3,12 @@ package com.alterra.capstone.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.OffsetDateTime;
 
 @Getter
 @Setter
@@ -38,10 +41,10 @@ public class Class {
     private String description;
 
     @Column(name = "start_at")
-    private LocalDate startAt;
+    private OffsetDateTime startAt;
 
     @Column(name = "end_at")
-    private LocalDate endAt;
+    private OffsetDateTime endAt;
 
     @Column(name = "qty_users")
     private Integer qtyUsers;
@@ -60,9 +63,11 @@ public class Class {
     private String location;
 
     @Column(name = "created_at")
-    private LocalDate createdAt;
+    @CreationTimestamp
+    private OffsetDateTime createdAt;
 
     @Column(name = "updated_at")
-    private LocalDate updatedAt;
+    @UpdateTimestamp
+    private OffsetDateTime updatedAt;
 
 }

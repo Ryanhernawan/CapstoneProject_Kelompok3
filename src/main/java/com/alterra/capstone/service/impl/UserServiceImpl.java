@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
         User user = new User();
 
         Role roleAdmin = new Role();
-        roleAdmin.setId(1L);
+        roleAdmin.setId(3L);
 
         user.setName(userPayload.getName());
         user.setUsername(userPayload.getUsername());

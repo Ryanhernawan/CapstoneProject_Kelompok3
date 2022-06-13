@@ -35,14 +35,14 @@ public class ClassController {
     }
 
     // GET CLAS BY USER ID
-    @GetMapping("/{user_id}")
-    public ResponseEntity<?> findClassByUser_Id(@PathVariable("user_id") Long user){
-        BaseResponse<List<Class>> baseResponse = new BaseResponse<>();
-        baseResponse.setSuccess(true);
-        baseResponse.setMessage("Success Get Class By User Id");
-        baseResponse.setData(List.of(service.findClassByUser_Id(user)));
-        return ResponseEntity.ok(baseResponse);
-    }
+//    @GetMapping("/{user_id}")
+//    public ResponseEntity<?> findClassByUser_Id(@PathVariable("user_id") Long user){
+//        BaseResponse<List<Class>> baseResponse = new BaseResponse<>();
+//        baseResponse.setSuccess(true);
+//        baseResponse.setMessage("Success Get Class By User Id");
+//        baseResponse.setData(List.of(service.findClassByUser_Id(user)));
+//        return ResponseEntity.ok(baseResponse);
+//    }
 
     // GET CLASS TYPE OFFLINE
     @GetMapping("/offline")
@@ -64,12 +64,21 @@ public class ClassController {
         return ResponseEntity.ok(baseResponse);
     }
 
-    @PostMapping
-    public ResponseEntity<?> createNewClass(@RequestBody Class payload){
+    @PostMapping("/online")
+    public ResponseEntity<?> createClassOnline(@RequestBody Class payload){
         BaseResponse<Class> baseResponse = new BaseResponse<>();
         baseResponse.setSuccess(true);
-        baseResponse.setMessage("Success Create New Class");
-        baseResponse.setData(service.createNewClass(payload));
+        baseResponse.setMessage("Success Create New Online Class");
+        baseResponse.setData(service.createOnlineClass(payload));
+        return ResponseEntity.ok(baseResponse);
+    }
+
+    @PostMapping("/offline")
+    public ResponseEntity<?> createClassOffline(@RequestBody Class payload){
+        BaseResponse<Class> baseResponse = new BaseResponse<>();
+        baseResponse.setSuccess(true);
+        baseResponse.setMessage("Success Create New Offline Class");
+        baseResponse.setData(service.createOfflineClass(payload));
         return ResponseEntity.ok(baseResponse);
     }
 

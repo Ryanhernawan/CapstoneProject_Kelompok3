@@ -3,9 +3,12 @@ package com.alterra.capstone.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.OffsetDateTime;
 
 @Setter
 @Getter
@@ -28,9 +31,11 @@ public class Instructor {
     private String email;
 
     @Column(name = "created_at")
-    private LocalDate createdAt;
+    @CreationTimestamp
+    private OffsetDateTime createdAt;
 
     @Column(name = "updated_at")
+    @UpdateTimestamp
     private LocalDate updatedAt;
 
 }

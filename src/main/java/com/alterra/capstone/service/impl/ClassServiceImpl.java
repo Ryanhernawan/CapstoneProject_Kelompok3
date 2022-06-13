@@ -1,11 +1,13 @@
 package com.alterra.capstone.service.impl;
 
 import com.alterra.capstone.entity.Class;
+import com.alterra.capstone.entity.Instructor;
 import com.alterra.capstone.repository.ClassRepository;
 import com.alterra.capstone.service.ClassService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.util.List;
 @Service
 @AllArgsConstructor
@@ -27,8 +29,35 @@ public class ClassServiceImpl implements ClassService {
     }
 
     @Override
-    public Class createNewClass(Class payload) {
-        return repository.save(payload);
+    public Class createOnlineClass(Class payload) {
+        Class addClass = new Class();
+        addClass.setName(payload.getName());
+        addClass.setIdInstructor(payload.getIdInstructor());
+        addClass.setStartAt(payload.getStartAt());
+        //end_ad 2 jam dari start_at
+        addClass.setEndAt(payload.getStartAt().plus(Duration.ofMinutes(120)));
+        addClass.setPrice(payload.getPrice());
+        addClass.setDescription(payload.getDescription());
+        addClass.setType("Online");
+        addClass.setLocation("From Home");
+        addClass.setQtyUsers(25);
+        return repository.save(addClass);
+    }
+
+    @Override
+    public Class createOfflineClass(Class payload) {
+        Class addClass = new Class();
+        addClass.setName(payload.getName());
+        addClass.setIdInstructor(payload.getIdInstructor());
+        addClass.setStartAt(payload.getStartAt());
+        //end_ad 2 jam dari start_at
+        addClass.setEndAt(payload.getStartAt().plus(Duration.ofMinutes(120)));
+        addClass.setPrice(payload.getPrice());
+        addClass.setDescription(payload.getDescription());
+        addClass.setType("Offline");
+        addClass.setLocation(payload.getLocation());
+        addClass.setQtyUsers(25);
+        return repository.save(addClass);
     }
 
     @Override
@@ -41,10 +70,10 @@ public class ClassServiceImpl implements ClassService {
         repository.deleteById(id);
     }
 
-    @Override
-    public Class findClassByUser_Id(Long user) {
-        return repository.findClassByUser_Id(user);
-    }
+//    @Override
+//    public Class findClassByUser_Id(Long user) {
+//        return repository.findClassByUser_Id(user);
+//    }
 
     @Override
     public List<Class> getClassTypeOffline() {
