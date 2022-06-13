@@ -26,16 +26,16 @@ public class ClassController {
     }
 
     @GetMapping("/{id_class}")
-    public ResponseEntity<?> getClassById(@PathVariable("id_class") Long id){
-        BaseResponse<List<Class>> baseResponse = new BaseResponse<>();
+    public BaseResponse<Class> getClassById(@PathVariable("id_class") Long id){
+        BaseResponse<Class> baseResponse = new BaseResponse<>();
         baseResponse.setSuccess(true);
         baseResponse.setMessage("Success Get Class By Id");
-        baseResponse.setData(List.of(service.getClassById(id)));
-        return ResponseEntity.ok(baseResponse);
+        baseResponse.setData(service.getClassById(id));
+        return baseResponse;
     }
 
     // GET CLAS BY USER ID
-    @GetMapping("/{user_id}")
+    @GetMapping("/user/{user_id}")
     public ResponseEntity<?> findClassByUser_Id(@PathVariable("user_id") Long user){
         BaseResponse<List<Class>> baseResponse = new BaseResponse<>();
         baseResponse.setSuccess(true);
