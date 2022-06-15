@@ -5,18 +5,18 @@ import com.alterra.capstone.entity.Class;
 import com.alterra.capstone.repository.BookingRepository;
 import com.alterra.capstone.service.BookingService;
 import lombok.AllArgsConstructor;
-import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 public class BookingServiceImpl implements BookingService {
+
     @Autowired
     private BookingRepository bookingRepository;
-
 
     @Override
     public Iterable<Booking> getAll() {
@@ -24,7 +24,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public Booking getById(Integer id) {
+    public Booking getById(Long id) {
         Optional<Booking> optionalBooking = bookingRepository.findById(id);
         if (optionalBooking.isEmpty()) {
         }
@@ -62,7 +62,26 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public void delete(Integer id) {
+    public Booking accBokingByid(Long id) {
+        Optional<Booking> bookingId = bookingRepository.findById(id);
+        bookingId.ifPresent(accBooking ->{
+            accBooking.setIsBooked(true);
+        });
+        return bookingRepository.save(getById(id));
+    }
+
+    @Override
+    public List<Booking> getBookingBeforeAcc() {
+        return bookingRepository.getBookingBeforeAcc();
+    }
+
+    @Override
+    public List<Booking> getBookingAcc() {
+        return bookingRepository.getBookingAfterAcc();
+    }
+
+    @Override
+    public void delete(Long id) {
         bookingRepository.deleteById(id);
     }
 }

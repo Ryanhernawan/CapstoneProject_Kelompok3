@@ -115,7 +115,7 @@ public class UserServiceImpl implements UserService {
             updateUser.setContact(userPayload.getContact());
             updateUser.setPassword(userPayload.getPassword());
         });
-        return userRepository.getById(id);
+        return userRepository.getReferenceById(id);
     }
 
     @Override

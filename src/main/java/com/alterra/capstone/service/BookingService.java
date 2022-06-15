@@ -1,12 +1,16 @@
 package com.alterra.capstone.service;
 
 import com.alterra.capstone.entity.Booking;
-import org.hibernate.mapping.List;
+
+import java.util.List;
 
 public interface BookingService {
     Iterable<Booking> getAll();
-    Booking getById (Integer id);
+    Booking getById (Long id);
     Booking create (Booking booking);
-    void delete(Integer id);
+    List<Booking> getBookingBeforeAcc();
+    List<Booking> getBookingAcc();
+    Booking accBokingByid(Long id);
+    void delete(Long id);
 }
 
