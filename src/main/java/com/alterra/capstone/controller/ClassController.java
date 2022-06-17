@@ -34,15 +34,15 @@ public class ClassController {
         return ResponseEntity.ok(baseResponse);
     }
 
-    // GET CLAS BY USER ID
-//    @GetMapping("/{user_id}")
-//    public ResponseEntity<?> findClassByUser_Id(@PathVariable("user_id") Long user){
-//        BaseResponse<List<Class>> baseResponse = new BaseResponse<>();
-//        baseResponse.setSuccess(true);
-//        baseResponse.setMessage("Success Get Class By User Id");
-//        baseResponse.setData(List.of(service.findClassByUser_Id(user)));
-//        return ResponseEntity.ok(baseResponse);
-//    }
+//     GET CLAS BY USER ID
+    @GetMapping("/{user_id}")
+    public ResponseEntity<?> findClassByUser_Id(@PathVariable("user_id") Long user){
+        BaseResponse<List<Class>> baseResponse = new BaseResponse<>();
+        baseResponse.setSuccess(true);
+        baseResponse.setMessage("Success Get Class By User Id");
+        baseResponse.setData(List.of(service.findClassByUser_Id(user)));
+        return ResponseEntity.ok(baseResponse);
+    }
 
     // GET CLASS TYPE OFFLINE
     @GetMapping("/offline")
