@@ -18,17 +18,8 @@ import java.time.OffsetDateTime;
 public class Class {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "id_class", nullable = false)
-//    private Integer id;
-//=======
     @Column(name = "id_class", nullable = false)
     private Long id;
-//>>>>>>> e30c79a320c5c0af878b952d8e55070386ad8d62
-
-//    @MapsId
-//    @OneToOne(fetch = FetchType.LAZY, optional = false)
-//    @JoinColumn(name = "id_class", nullable = false)
-//    private Booking booking;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_user")

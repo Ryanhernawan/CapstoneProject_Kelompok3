@@ -1,6 +1,7 @@
 package com.alterra.capstone.controller;
 
 import com.alterra.capstone.entity.Booking;
+import com.alterra.capstone.payload.BookingPayload;
 import com.alterra.capstone.service.BookingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,37 +14,54 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping ("/booking")
 public class BookingController {
+
     @Autowired
     BookingService bookingService;
 
     @GetMapping
-    public Iterable<Booking> getAll(){
-        return bookingService.getAll();
+    public ResponseEntity<BaseResponse<Iterable<Booking>>> getAll(){
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setSuccess(true);
+        baseResponse.setMessage("Get All Booking");
+        baseResponse.setData(bookingService.getAll());
+        return ResponseEntity.ok(baseResponse);
     }
 
     @GetMapping ("/{id}")
-    public ResponseEntity<?>BookingById(@PathVariable("id") Long id){
-        Booking booking = bookingService.getById(id);
-        return ResponseEntity.ok(booking);
+    public ResponseEntity<BaseResponse<Booking>> BookingById(@PathVariable("id") Long id){
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setSuccess(true);
+        baseResponse.setMessage("Get Booking " + id);
+        baseResponse.setData(bookingService.getById(id));
+        return ResponseEntity.ok(baseResponse);
     }
 
     @PostMapping
-    public ResponseEntity<?> createBooking(@RequestBody Booking booking){
-        Booking bookingCreate = bookingService.create(booking);
-        return ResponseEntity.ok(bookingCreate);
+    public ResponseEntity<BaseResponse<Booking>> createBooking(@RequestBody BookingPayload bookingPayload){
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setSuccess(true);
+        baseResponse.setMessage("Add Booking Class");
+        baseResponse.setData(bookingService.create(bookingPayload));
+        return ResponseEntity.ok(baseResponse);
     }
 
-    //get bookiing before acc
+    //get booking before acc
     @GetMapping("/false")
-    public ResponseEntity<?> getBeforeAcc(){
-        List<Booking> bookingBeforeAcc = bookingService.getBookingBeforeAcc();
-        return ResponseEntity.ok(bookingBeforeAcc);
+    public ResponseEntity<BaseResponse<Booking>> getBeforeAcc(){
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setSuccess(true);
+        baseResponse.setMessage("Booking before ACC");
+        baseResponse.setData(bookingService.getBookingBeforeAcc());
+        return ResponseEntity.ok(baseResponse);
     }
 
     @GetMapping("/true")
-    public ResponseEntity<?> getAfterAcc(){
-        List<Booking> bookingBeforeAcc = bookingService.getBookingAcc();
-        return ResponseEntity.ok(bookingBeforeAcc);
+    public ResponseEntity<BaseResponse<Booking>> getAfterAcc(){
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setSuccess(true);
+        baseResponse.setMessage("Booking Accepted");
+        baseResponse.setData(bookingService.getBookingAcc());
+        return ResponseEntity.ok(baseResponse);
     }
 
     @PutMapping("/acc/{id}")

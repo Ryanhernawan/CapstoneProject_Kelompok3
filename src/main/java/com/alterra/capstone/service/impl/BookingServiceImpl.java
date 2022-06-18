@@ -2,11 +2,13 @@ package com.alterra.capstone.service.impl;
 
 import com.alterra.capstone.entity.Booking;
 import com.alterra.capstone.entity.Class;
+import com.alterra.capstone.payload.BookingPayload;
 import com.alterra.capstone.repository.BookingRepository;
 import com.alterra.capstone.service.BookingService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,11 +26,14 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public Booking getById(Long id) {
-        Optional<Booking> optionalBooking = bookingRepository.findById(id);
-        if (optionalBooking.isEmpty()) {
-        }
-        return optionalBooking.get();
+    public Booking getById(@PathVariable Long id) {
+        Booking booking = new Booking();
+        booking = bookingRepository.findById(id).orElse(booking);
+
+//        Optional<Booking> optionalBooking = bookingRepository.findById(id);
+//        if (optionalBooking.isEmpty()) {
+//        }
+        return booking;
     }
 
 //    @Override
@@ -50,15 +55,15 @@ public class BookingServiceImpl implements BookingService {
 //    }
 
     @Override
-    public Booking create(Booking booking) {
+    public Booking create(BookingPayload bookingPayload) {
         Class classBook = new Class();
         Integer price = classBook.getPrice();
 
         Booking bookingClass = new Booking();
         bookingClass.setIsBooked(false);
         bookingClass.setTotalPrice(price);
-        bookingClass.setClassId(booking.getClassId());
-        return bookingRepository.save(booking);
+        bookingClass.setClassId(bookingPayload.getClassId());
+        return bookingRepository.save(bookingClass);
     }
 
     @Override
