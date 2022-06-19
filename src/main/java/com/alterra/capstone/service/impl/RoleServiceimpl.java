@@ -1,6 +1,7 @@
 package com.alterra.capstone.service.impl;
 
 import com.alterra.capstone.entity.Role;
+import com.alterra.capstone.payload.RolePayload;
 import com.alterra.capstone.service.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,17 +20,26 @@ public class RoleServiceimpl implements RoleService {
         return roleRepository.findAll();
     }
 
+//    @Override
+//    public Role getById(Integer id) {
+//        Optional<Role> optionalRole = roleRepository.findById(id);
+//        if (optionalRole.isEmpty()) {
+//        }
+//        return optionalRole.get();
+//    }
+
     @Override
     public Role getById(Integer id) {
-        Optional<Role> optionalRole = roleRepository.findById(id);
-        if (optionalRole.isEmpty()) {
-        }
-        return optionalRole.get();
+        Role role = new Role();
+        role = roleRepository.findById(id).orElse(role);
+        return role;
     }
 
     @Override
-    public Role create (Role role){
-        return (Role) roleRepository.save(role);
+    public Role create (RolePayload rolePayload){
+        Role role = new Role();
+        role.setName(rolePayload.getName());
+        return roleRepository.save(role);
     }
 
     @Override

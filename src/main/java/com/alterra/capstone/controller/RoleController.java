@@ -1,6 +1,7 @@
 package com.alterra.capstone.controller;
 
 import com.alterra.capstone.entity.Role;
+import com.alterra.capstone.payload.RolePayload;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,21 +16,31 @@ public class RoleController {
     private RoleService roleService;
 
     @GetMapping
-    public Iterable<Role> getAll() {
-        return roleService.getAll();
+    public BaseResponse<Iterable<Role>> getAll() {
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setSuccess(true);
+        baseResponse.setMessage("get All Role");
+        baseResponse.setData(roleService.getAll());
+        return baseResponse;
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> RoleById(@PathVariable("id") Integer id) {
-        Role role = roleService.getById(id);
-        return ResponseEntity.ok(role);
+    public ResponseEntity<BaseResponse<Role>> RoleById(@PathVariable("id") Integer id) {
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setSuccess(true);
+        baseResponse.setMessage("Get Role By id");
+        baseResponse.setData(roleService.getById(id));
+        return ResponseEntity.ok(baseResponse);
 
     }
 
     @PostMapping
-    public ResponseEntity<?> createRole(@RequestBody Role role) {
-        Role roleCreate = roleService.create(role);
-        return ResponseEntity.ok(roleCreate);
+    public ResponseEntity<BaseResponse<Role>> createRole(@RequestBody RolePayload rolePayload) {
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setSuccess(true);
+        baseResponse.setMessage("Create role");
+        baseResponse.setData(roleService.create(rolePayload));
+        return ResponseEntity.ok(baseResponse);
     }
 
     @DeleteMapping("/{id}")

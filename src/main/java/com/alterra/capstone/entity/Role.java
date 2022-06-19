@@ -8,6 +8,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.OffsetDateTime;
 
 @Getter
 @Setter
@@ -25,10 +26,10 @@ public class Role {
 
     @Column(name = "created_at")
     @CreationTimestamp
-    private LocalDate createdAt;
+    private OffsetDateTime createdAt;
 
     @Column(name = "updated_at")
     @UpdateTimestamp
-    private LocalDate updatedAt;
+    private OffsetDateTime updatedAt;
 
 }
