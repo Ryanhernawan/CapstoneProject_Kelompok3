@@ -70,7 +70,6 @@ public class BookingController {
         return ResponseEntity.ok(booking);
     }
 
-
      @DeleteMapping ("/{id}")
         public ResponseEntity<?> deleteBooking(@PathVariable("id") Long id){
          bookingService.delete(id);
