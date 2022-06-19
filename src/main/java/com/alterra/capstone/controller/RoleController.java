@@ -48,5 +48,4 @@ public class RoleController {
         roleService.delete(id);
         return ResponseEntity.notFound().build();
     }
-
-    }
+}

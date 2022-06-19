@@ -2,6 +2,7 @@ package com.alterra.capstone.controller;
 
 //import com.alterra.capstone.entity.BaseResponse;
 import com.alterra.capstone.entity.Class;
+import com.alterra.capstone.payload.ClassPayload;
 import com.alterra.capstone.service.ClassService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -35,12 +36,12 @@ public class ClassController {
     }
 
 //     GET CLAS BY USER ID
-    @GetMapping("/{user_id}")
+    @GetMapping("/user_id/{user_id}")
     public ResponseEntity<?> findClassByUser_Id(@PathVariable("user_id") Long user){
         BaseResponse<List<Class>> baseResponse = new BaseResponse<>();
         baseResponse.setSuccess(true);
         baseResponse.setMessage("Success Get Class By User Id");
-        baseResponse.setData(List.of(service.findClassByUser_Id(user)));
+        baseResponse.setData(service.findClassByUser_Id(user));
         return ResponseEntity.ok(baseResponse);
     }
 
@@ -65,7 +66,7 @@ public class ClassController {
     }
 
     @PostMapping("/online")
-    public ResponseEntity<?> createClassOnline(@RequestBody Class payload){
+    public ResponseEntity<?> createClassOnline(@RequestBody ClassPayload payload){
         BaseResponse<Class> baseResponse = new BaseResponse<>();
         baseResponse.setSuccess(true);
         baseResponse.setMessage("Success Create New Online Class");
@@ -74,7 +75,7 @@ public class ClassController {
     }
 
     @PostMapping("/offline")
-    public ResponseEntity<?> createClassOffline(@RequestBody Class payload){
+    public ResponseEntity<?> createClassOffline(@RequestBody ClassPayload payload){
         BaseResponse<Class> baseResponse = new BaseResponse<>();
         baseResponse.setSuccess(true);
         baseResponse.setMessage("Success Create New Offline Class");
@@ -83,12 +84,12 @@ public class ClassController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateClass(@PathVariable("id") Long id, Class payload){
+    public ResponseEntity<?> updateClass(@PathVariable("id") Long id, ClassPayload payload){
         BaseResponse<Class> baseResponse = new BaseResponse<>();
         baseResponse.setSuccess(true);
         baseResponse.setMessage("Success Update Class");
         payload.setId(id);
-        baseResponse.setData(service.updateClass(payload));
+        baseResponse.setData(service.updateClass(id,payload));
         return ResponseEntity.ok(baseResponse);
     }
 
