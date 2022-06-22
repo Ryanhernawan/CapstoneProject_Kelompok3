@@ -64,6 +64,8 @@ public class ClassController {
         return ResponseEntity.ok(baseResponse);
     }
 
+    
+
     @PostMapping
     public ResponseEntity<?> createNewClass(@RequestBody Class payload){
         BaseResponse<Class> baseResponse = new BaseResponse<>();
