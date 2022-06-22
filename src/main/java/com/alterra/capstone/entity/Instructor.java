@@ -36,6 +36,6 @@ public class Instructor {
 
     @Column(name = "updated_at")
     @UpdateTimestamp
-    private LocalDate updatedAt;
+    private OffsetDateTime updatedAt;
 
 }

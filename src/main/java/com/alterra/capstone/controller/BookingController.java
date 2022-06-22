@@ -5,6 +5,7 @@ import com.alterra.capstone.payload.BookingPayload;
 import com.alterra.capstone.service.BookingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,10 +31,17 @@ public class BookingController {
     @GetMapping ("/{id}")
     public ResponseEntity<BaseResponse<Booking>> BookingById(@PathVariable("id") Long id){
         BaseResponse baseResponse = new BaseResponse();
-        baseResponse.setSuccess(true);
-        baseResponse.setMessage("Get Booking " + id);
-        baseResponse.setData(bookingService.getById(id));
-        return ResponseEntity.ok(baseResponse);
+        if (bookingService.getById(id) != null) {
+            baseResponse.setSuccess(true);
+            baseResponse.setMessage("Get Booking " + id);
+            baseResponse.setData(bookingService.getById(id));
+        }else {
+            baseResponse.setSuccess(false);
+            baseResponse.setMessage(" Failed to get Booking " + id);
+            baseResponse.setData(null);
+            return new ResponseEntity(baseResponse, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity(baseResponse, HttpStatus.OK);
     }
 
     @PostMapping
@@ -42,7 +50,7 @@ public class BookingController {
         baseResponse.setSuccess(true);
         baseResponse.setMessage("Add Booking Class");
         baseResponse.setData(bookingService.create(bookingPayload));
-        return ResponseEntity.ok(baseResponse);
+        return new ResponseEntity(baseResponse, HttpStatus.CREATED);
     }
 
     //get booking before acc
@@ -52,7 +60,7 @@ public class BookingController {
         baseResponse.setSuccess(true);
         baseResponse.setMessage("Booking before ACC");
         baseResponse.setData(bookingService.getBookingBeforeAcc());
-        return ResponseEntity.ok(baseResponse);
+        return new ResponseEntity(baseResponse, HttpStatus.OK);
     }
 
     @GetMapping("/true")
@@ -61,19 +69,28 @@ public class BookingController {
         baseResponse.setSuccess(true);
         baseResponse.setMessage("Booking Accepted");
         baseResponse.setData(bookingService.getBookingAcc());
-        return ResponseEntity.ok(baseResponse);
+        return new ResponseEntity(baseResponse, HttpStatus.OK);
     }
 
     @PutMapping("/acc/{id}")
-    public ResponseEntity<?> accBooking(@PathVariable Long id){
-        Booking booking = bookingService.accBokingByid(id);
-        return ResponseEntity.ok(booking);
+    public ResponseEntity<?> accBooking(@PathVariable Long id, @RequestBody BookingPayload bookingPayload){
+        BaseResponse baseResponse = new BaseResponse();
+        if (bookingService.getById(id) != null){
+            bookingService.accBokingByid(id);
+            baseResponse.setSuccess(true);
+            baseResponse.setMessage("Success to Acc booking ID " + id);
+        }else {
+            baseResponse.setSuccess(false);
+            baseResponse.setMessage("Failed to Acc Booking");
+            return new ResponseEntity(baseResponse, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity(baseResponse, HttpStatus.ACCEPTED);
     }
 
-     @DeleteMapping ("/{id}")
-        public ResponseEntity<?> deleteBooking(@PathVariable("id") Long id){
-         bookingService.delete(id);
-         return ResponseEntity.notFound().build();
+    @DeleteMapping ("/{id}")
+    public ResponseEntity<?> deleteBooking(@PathVariable("id") Long id){
+        bookingService.delete(id);
+        return ResponseEntity.notFound().build();
 
-     }
+    }
 }

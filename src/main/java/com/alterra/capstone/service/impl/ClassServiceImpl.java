@@ -1,14 +1,17 @@
 package com.alterra.capstone.service.impl;
 
 import com.alterra.capstone.entity.Class;
-import com.alterra.capstone.entity.Instructor;
+import com.alterra.capstone.payload.ClassPayload;
 import com.alterra.capstone.repository.ClassRepository;
 import com.alterra.capstone.service.ClassService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 public class ClassServiceImpl implements ClassService {
@@ -29,7 +32,7 @@ public class ClassServiceImpl implements ClassService {
     }
 
     @Override
-    public Class createOnlineClass(Class payload) {
+    public Class createOnlineClass(ClassPayload payload) {
         Class addClass = new Class();
         addClass.setName(payload.getName());
         addClass.setIdInstructor(payload.getIdInstructor());
@@ -45,7 +48,7 @@ public class ClassServiceImpl implements ClassService {
     }
 
     @Override
-    public Class createOfflineClass(Class payload) {
+    public Class createOfflineClass(ClassPayload payload) {
         Class addClass = new Class();
         addClass.setName(payload.getName());
         addClass.setIdInstructor(payload.getIdInstructor());
@@ -61,8 +64,20 @@ public class ClassServiceImpl implements ClassService {
     }
 
     @Override
-    public Class updateClass(Class payload) {
-        return repository.save(payload);
+    public Class updateClass(@PathVariable Long id, ClassPayload payload) {
+        Optional<Class> classId = repository.findById(id);
+        classId.ifPresent(updateClass -> {
+            updateClass.setName(payload.getName());
+            updateClass.setIdInstructor(payload.getIdInstructor());
+            updateClass.setStartAt(payload.getStartAt());
+            //end_ad 2 jam dari start_at
+            updateClass.setEndAt(payload.getStartAt().plus(Duration.ofMinutes(120)));
+            updateClass.setPrice(payload.getPrice());
+            updateClass.setDescription(payload.getDescription());
+            updateClass.setType(payload.getType());
+            updateClass.setLocation(payload.getLocation());
+        });
+        return repository.getReferenceById(id);
     }
 
     @Override
@@ -71,7 +86,7 @@ public class ClassServiceImpl implements ClassService {
     }
 
     @Override
-    public Class findClassByUser_Id(Long user) {
+    public List<Class> findClassByUser_Id(@PathVariable Long user) {
         return repository.findClassByUser_Id(user);
     }
 

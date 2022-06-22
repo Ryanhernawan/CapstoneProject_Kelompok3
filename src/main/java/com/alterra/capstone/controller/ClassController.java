@@ -1,10 +1,10 @@
 package com.alterra.capstone.controller;
 
-//import com.alterra.capstone.entity.BaseResponse;
 import com.alterra.capstone.entity.Class;
 import com.alterra.capstone.payload.ClassPayload;
 import com.alterra.capstone.service.ClassService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,26 +23,40 @@ public class ClassController {
         baseResponse.setSuccess(true);
         baseResponse.setMessage("Success Get All Class");
         baseResponse.setData(service.getAllClass());
-        return ResponseEntity.ok(baseResponse);
+        return new ResponseEntity(baseResponse, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getClassById(@PathVariable("id") Long id){
         BaseResponse<List<Class>> baseResponse = new BaseResponse<>();
-        baseResponse.setSuccess(true);
-        baseResponse.setMessage("Success Get Class By Id");
-        baseResponse.setData(List.of(service.getClassById(id)));
-        return ResponseEntity.ok(baseResponse);
+        if (service.getClassById(id) != null){
+            baseResponse.setSuccess(true);
+            baseResponse.setMessage("Success Get Class By Id");
+            baseResponse.setData(List.of(service.getClassById(id)));
+        }else {
+            baseResponse.setSuccess(false);
+            baseResponse.setMessage("Failed Get Class By Id");
+            baseResponse.setData(null);
+            return new ResponseEntity(baseResponse, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity(baseResponse, HttpStatus.OK);
     }
 
-//     GET CLAS BY USER ID
+//     GET CLASS BY USER ID
     @GetMapping("/user_id/{user_id}")
     public ResponseEntity<?> findClassByUser_Id(@PathVariable("user_id") Long user){
         BaseResponse<List<Class>> baseResponse = new BaseResponse<>();
-        baseResponse.setSuccess(true);
-        baseResponse.setMessage("Success Get Class By User Id");
-        baseResponse.setData(service.findClassByUser_Id(user));
-        return ResponseEntity.ok(baseResponse);
+        if (service.findClassByUser_Id(user) != null){
+            baseResponse.setSuccess(true);
+            baseResponse.setMessage("Success Get Class By User Id");
+            baseResponse.setData(service.findClassByUser_Id(user));
+        }else {
+            baseResponse.setSuccess(false);
+            baseResponse.setMessage("Failed Get Class By User Id");
+            baseResponse.setData(null);
+            return new ResponseEntity(baseResponse, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity(baseResponse, HttpStatus.OK);
     }
 
     // GET CLASS TYPE OFFLINE
@@ -71,7 +85,7 @@ public class ClassController {
         baseResponse.setSuccess(true);
         baseResponse.setMessage("Success Create New Online Class");
         baseResponse.setData(service.createOnlineClass(payload));
-        return ResponseEntity.ok(baseResponse);
+        return new ResponseEntity(baseResponse, HttpStatus.CREATED);
     }
 
     @PostMapping("/offline")
@@ -80,7 +94,7 @@ public class ClassController {
         baseResponse.setSuccess(true);
         baseResponse.setMessage("Success Create New Offline Class");
         baseResponse.setData(service.createOfflineClass(payload));
-        return ResponseEntity.ok(baseResponse);
+        return new ResponseEntity(baseResponse, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
@@ -90,7 +104,7 @@ public class ClassController {
         baseResponse.setMessage("Success Update Class");
         payload.setId(id);
         baseResponse.setData(service.updateClass(id,payload));
-        return ResponseEntity.ok(baseResponse);
+        return new ResponseEntity(baseResponse, HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/{id}")

@@ -90,7 +90,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUsersById(@PathVariable Long id) {
         User user = new User();
-        user = userRepository.findById(id).orElse(user);
+        user = userRepository.findById(id).orElse(null);
         return user;
     }
 
@@ -102,7 +102,7 @@ public class UserServiceImpl implements UserService {
         idUser.ifPresent(update -> {
             update.setPassword(userPayload.getPassword());
         });
-        return userRepository.getById(id);
+        return userRepository.getReferenceById(id);
     }
 
     @Override
