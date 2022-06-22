@@ -22,7 +22,22 @@ public class BookingController {
     public ResponseEntity<?>BookingById(@PathVariable("id") Integer id){
      Booking booking = bookingService.getById(id);
      return ResponseEntity.ok(booking);
+
+   // GET USER BY ID
  }
+ @GetMapping ("/User{id}")
+ public ResponseEntity<?>BookingUserById(@PathVariable("id") Integer id){
+     Booking booking = (Booking) bookingService.findBookingByUser_Id(id);
+     return ResponseEntity.ok(booking);
+
+     // GET CLASS BY ID
+ }
+ @GetMapping
+ public ResponseEntity<?>BookingClassById(@PathVariable("id")Integer id){
+     Booking booking = (Booking) bookingService.findBookingByClass_Id(id);
+     return  ResponseEntity.ok(booking);
+ }
+
 @PostMapping
     public ResponseEntity<?> createBooking(@RequestBody Booking booking){
      Booking bookingCreate = bookingService.create(booking);

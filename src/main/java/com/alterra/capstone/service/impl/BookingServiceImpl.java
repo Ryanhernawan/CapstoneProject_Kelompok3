@@ -3,9 +3,9 @@ package com.alterra.capstone.service.impl;
 import com.alterra.capstone.entity.Booking;
 import com.alterra.capstone.repository.BookingRepository;
 import com.alterra.capstone.service.BookingService;
-import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
 import java.util.Optional;
 
 public class BookingServiceImpl implements BookingService {
@@ -34,6 +34,16 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public void delete(Integer id) {
         bookingRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Booking> findBookingByUser_Id(Integer Id) {
+        return bookingRepository.findBookingByUser_id();
+    }
+
+    @Override
+    public List<Booking> findBookingByClass_Id(Integer Id) {
+        return bookingRepository.findBookingByClass_id();
     }
 }
 
