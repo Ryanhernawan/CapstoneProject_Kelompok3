@@ -4,6 +4,7 @@ import com.alterra.capstone.entity.Class;
 import com.alterra.capstone.payload.ClassPayload;
 
 import java.util.List;
+import java.util.Set;
 
 public interface ClassService {
     List<Class> getAllClass();
@@ -15,6 +16,7 @@ public interface ClassService {
     List<Class> findClassByUser_Id(Long user);
     List<Class> getClassTypeOffline();
     List<Class> getClassTypeOnline();
+    Set<Class> getClassByUserID();
     // List<Class> getCountClassJoined(Long user, Long id);
 
 

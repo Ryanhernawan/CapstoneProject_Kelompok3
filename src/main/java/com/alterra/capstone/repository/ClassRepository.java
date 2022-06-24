@@ -10,8 +10,11 @@ import java.util.List;
 public interface ClassRepository extends JpaRepository<Class, Long> {
 
     //query find class by user id
-    @Query(value = "SELECT c FROM  Class c WHERE c.user.id=?1")
-    List<Class> findClassByUser_Id(Long user);
+//    @Query(value = "SELECT c FROM  Class c WHERE c.user.id=?1")
+//    List<Class> findClassByUser_Id(Long user);
+
+//    @Query(value = "SELECT COUNT(cu) FROM class_by_user cu WHERE cu.id_user = ?1")
+//    Integer CountClassByUserId(Long idUser);
 
     //query find class by type = offline
     @Query(value = "SELECT c FROM  Class c WHERE c.type='offline'")

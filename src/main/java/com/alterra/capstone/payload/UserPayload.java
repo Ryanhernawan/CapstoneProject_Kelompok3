@@ -1,5 +1,6 @@
 package com.alterra.capstone.payload;
 
+import com.alterra.capstone.entity.Class;
 import lombok.Data;
 
 import java.time.OffsetDateTime;
@@ -8,6 +9,7 @@ import java.time.OffsetDateTime;
 public class UserPayload {
     private Long id;
     private String name;
+    private Class classes;
     private String email;
     private String address;
     private String contact;

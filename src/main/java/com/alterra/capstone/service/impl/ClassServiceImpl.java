@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -86,9 +87,14 @@ public class ClassServiceImpl implements ClassService {
     }
 
     @Override
-    public List<Class> findClassByUser_Id(@PathVariable Long user) {
-        return repository.findClassByUser_Id(user);
+    public List<Class> findClassByUser_Id(Long user) {
+        return null;
     }
+
+//    @Override
+//    public List<Class> findClassByUser_Id(@PathVariable Long user) {
+//        return repository.findClassByUser_Id(user);
+//    }
 
     @Override
     public List<Class> getClassTypeOffline() {
@@ -98,6 +104,11 @@ public class ClassServiceImpl implements ClassService {
     @Override
     public List<Class> getClassTypeOnline() {
         return repository.getClassTypeOnline();
+    }
+
+    @Override
+    public Set<Class> getClassByUserID() {
+        return null;
     }
 
     // @Override
