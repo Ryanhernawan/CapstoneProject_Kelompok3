@@ -15,6 +15,7 @@ public interface ClassService {
     List<Class> findClassByUser_Id(Long user);
     List<Class> getClassTypeOffline();
     List<Class> getClassTypeOnline();
+    // List<Class> getCountClassJoined(Long user, Long id);
 
 
 

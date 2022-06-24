@@ -7,8 +7,14 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.swing.text.html.HTML.Tag;
+
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
 
 @Getter
 @Setter
@@ -18,12 +24,22 @@ import java.time.OffsetDateTime;
 public class Class {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_class", nullable = false)
+    @Column(name = "id_class")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_user")
-    private User user;
+//    @ManyToOne
+//    @JoinColumn(name = "id_user", referencedColumnName = "id_user")
+//    private User user;
+
+    @ManyToMany(fetch = FetchType.LAZY,
+    cascade = {
+        CascadeType.PERSIST,
+        CascadeType.MERGE
+    })
+    @JoinTable(name = "class_by_user",
+        joinColumns = {@JoinColumn(name = "id_class")},
+        inverseJoinColumns = {@JoinColumn(name = "id_user")})
+    private Set<User> users = new HashSet<>();
 
     @Column(name = "name")
     private String name;
@@ -43,8 +59,8 @@ public class Class {
     @Column(name = "type")
     private String type;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_instructor")
+    @ManyToOne
+    @JoinColumn(name = "id_instructor", referencedColumnName = "id_instructor")
     private Instructor idInstructor;
 
     @Column(name = "price")

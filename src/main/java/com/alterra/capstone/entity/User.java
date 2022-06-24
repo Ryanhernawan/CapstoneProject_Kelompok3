@@ -1,5 +1,6 @@
 package com.alterra.capstone.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,6 +10,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -23,6 +26,15 @@ public class User {
 
     @Column(name = "name")
     private String name;
+
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },
+            mappedBy = "users")
+    @JsonIgnore
+    private Set<Class> classes = new HashSet<>();
 
     @Column(name = "email")
     private String email;
@@ -42,6 +54,10 @@ public class User {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_role")
     private Role role;
+
+//    @ManyToOne
+//    @JoinColumn(name = "id_role", referencedColumnName = "id_role")
+//    private Role idRole;
 
     @Column(name = "created_at")
     @CreationTimestamp

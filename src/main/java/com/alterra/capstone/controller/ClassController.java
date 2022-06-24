@@ -26,6 +26,7 @@ public class ClassController {
         return new ResponseEntity(baseResponse, HttpStatus.OK);
     }
 
+    //     GET CLASS BY USER ID
     @GetMapping("/{id}")
     public ResponseEntity<?> getClassById(@PathVariable("id") Long id){
         BaseResponse<List<Class>> baseResponse = new BaseResponse<>();
@@ -42,8 +43,18 @@ public class ClassController {
         return new ResponseEntity(baseResponse, HttpStatus.OK);
     }
 
-//     GET CLASS BY USER ID
-    @GetMapping("/user_id/{user_id}")
+
+//    @GetMapping("/user_id/{user_id}")
+//    public BaseResponse<Class> getClassById(@PathVariable("id_class") Long id){
+//        BaseResponse<Class> baseResponse = new BaseResponse<>();
+//        baseResponse.setSuccess(true);
+//        baseResponse.setMessage("Success Get Class By Id");
+//        baseResponse.setData(service.getClassById(id));
+//        return baseResponse;
+//    }
+
+    // GET CLAS BY USER ID
+    @GetMapping("/user/{user_id}")
     public ResponseEntity<?> findClassByUser_Id(@PathVariable("user_id") Long user){
         BaseResponse<List<Class>> baseResponse = new BaseResponse<>();
         if (service.findClassByUser_Id(user) != null){
@@ -79,8 +90,11 @@ public class ClassController {
         return ResponseEntity.ok(baseResponse);
     }
 
+//    @PostMapping("/online")
+//    public ResponseEntity<?> createClassOnline(@RequestBody ClassPayload payload){
+
     @PostMapping("/online")
-    public ResponseEntity<?> createClassOnline(@RequestBody ClassPayload payload){
+    public ResponseEntity<?> createNewClass(@RequestBody ClassPayload payload){
         BaseResponse<Class> baseResponse = new BaseResponse<>();
         baseResponse.setSuccess(true);
         baseResponse.setMessage("Success Create New Online Class");

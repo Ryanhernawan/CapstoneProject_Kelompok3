@@ -19,7 +19,11 @@ public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_Booking", nullable = false)
-    private Long id;
+    private Integer id;
+
+//    @OneToOne
+//    @JoinColumn(name = "id_class")
+//    private Class idClass;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_class")

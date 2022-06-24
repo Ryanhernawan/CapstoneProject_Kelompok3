@@ -100,4 +100,9 @@ public class ClassServiceImpl implements ClassService {
         return repository.getClassTypeOnline();
     }
 
+    // @Override
+    // public List<Class> getCountClassJoined(Long user, Long id) {
+    //     return repository.getCountClassJoined(user, id);
+    // }
+
 }
