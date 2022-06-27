@@ -20,9 +20,15 @@ public class ClassController {
     @GetMapping
     public ResponseEntity<?> getAllClass(){
         BaseResponse<List<Class>> baseResponse = new BaseResponse<>();
-        baseResponse.setSuccess(true);
-        baseResponse.setMessage("Success Get All Class");
-        baseResponse.setData(service.getAllClass());
+        try {
+            baseResponse.setSuccess(true);
+            baseResponse.setMessage("Success Get All Class");
+            baseResponse.setData(service.getAllClass());
+        }catch (Exception e){
+            baseResponse.setSuccess(false);
+            baseResponse.setMessage(e.getMessage());
+            return new ResponseEntity(baseResponse, HttpStatus.NO_CONTENT);
+        }
         return new ResponseEntity(baseResponse, HttpStatus.OK);
     }
 
@@ -96,34 +102,63 @@ public class ClassController {
     @PostMapping("/online")
     public ResponseEntity<?> createNewClass(@RequestBody ClassPayload payload){
         BaseResponse<Class> baseResponse = new BaseResponse<>();
-        baseResponse.setSuccess(true);
-        baseResponse.setMessage("Success Create New Online Class");
-        baseResponse.setData(service.createOnlineClass(payload));
+        try {
+            baseResponse.setSuccess(true);
+            baseResponse.setMessage("Success Create New Online Class");
+            baseResponse.setData(service.createOnlineClass(payload));
+        }
+        catch (Exception e){
+            baseResponse.setSuccess(false);
+            baseResponse.setMessage(e.getMessage());
+            return new ResponseEntity(baseResponse, HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity(baseResponse, HttpStatus.CREATED);
     }
 
     @PostMapping("/offline")
     public ResponseEntity<?> createClassOffline(@RequestBody ClassPayload payload){
         BaseResponse<Class> baseResponse = new BaseResponse<>();
-        baseResponse.setSuccess(true);
-        baseResponse.setMessage("Success Create New Offline Class");
-        baseResponse.setData(service.createOfflineClass(payload));
+        try {
+            baseResponse.setSuccess(true);
+            baseResponse.setMessage("Success Create New Offline Class");
+            baseResponse.setData(service.createOfflineClass(payload));
+        }catch (Exception e){
+            baseResponse.setSuccess(false);
+            baseResponse.setMessage(e.getMessage());
+            return new ResponseEntity(baseResponse, HttpStatus.BAD_REQUEST);
+        }
+
         return new ResponseEntity(baseResponse, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updateClass(@PathVariable("id") Long id, ClassPayload payload){
         BaseResponse<Class> baseResponse = new BaseResponse<>();
-        baseResponse.setSuccess(true);
-        baseResponse.setMessage("Success Update Class");
-        payload.setId(id);
-        baseResponse.setData(service.updateClass(id,payload));
+        try {
+            baseResponse.setSuccess(true);
+            baseResponse.setMessage("Success Update Class");
+            payload.setId(id);
+            baseResponse.setData(service.updateClass(id,payload));
+        }catch (Exception e){
+            baseResponse.setSuccess(false);
+            baseResponse.setMessage(e.getMessage());
+            return new ResponseEntity(baseResponse, HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity(baseResponse, HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteClassById(@PathVariable("id") Long id){
-        service.deleteClasById(id);
-        return ResponseEntity.ok("Success Delete Class");
+        BaseResponse baseResponse = new BaseResponse();
+        try {
+            service.deleteClasById(id);
+            baseResponse.setSuccess(true);
+            baseResponse.setMessage("Deleted");
+        } catch (Exception e){
+            baseResponse.setSuccess(false);
+            baseResponse.setMessage("Delete failed");
+            return new ResponseEntity(baseResponse, HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity(baseResponse, HttpStatus.OK);
     }
 }

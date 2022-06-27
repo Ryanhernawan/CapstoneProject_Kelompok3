@@ -7,11 +7,9 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import javax.swing.text.html.HTML.Tag;
+import javax.validation.constraints.Size;
 
-import java.time.LocalDate;
 import java.time.OffsetDateTime;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -44,7 +42,7 @@ public class Class {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "description")
+    @Column(name = "description", length = 4000)
     private String description;
 
     @Column(name = "start_at")
