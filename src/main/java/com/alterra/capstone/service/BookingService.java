@@ -8,10 +8,11 @@ import java.util.List;
 public interface BookingService {
     Iterable<Booking> getAll();
     Booking getById (Long id);
-    Booking create (BookingPayload bookingPayload);
+    List<Booking> create (BookingPayload bookingPayload);
     List<Booking> getBookingBeforeAcc();
     List<Booking> getBookingAcc();
     Booking accBokingByid(Long id);
+    Booking insertAfterAcc(Long id);
     void delete(Long id);
 }
 

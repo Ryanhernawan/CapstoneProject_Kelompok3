@@ -73,18 +73,23 @@ public class BookingController {
     }
 
     @PutMapping("/acc/{id}")
-    public ResponseEntity<?> accBooking(@PathVariable Long id, @RequestBody BookingPayload bookingPayload){
+    public BaseResponse<Booking> accBooking(@PathVariable Long id){
         BaseResponse baseResponse = new BaseResponse();
-        if (bookingService.getById(id) != null){
-            bookingService.accBokingByid(id);
-            baseResponse.setSuccess(true);
-            baseResponse.setMessage("Success to Acc booking ID " + id);
-        }else {
-            baseResponse.setSuccess(false);
-            baseResponse.setMessage("Failed to Acc Booking");
-            return new ResponseEntity(baseResponse, HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity(baseResponse, HttpStatus.ACCEPTED);
+        baseResponse.setMessage("berhasil");
+        baseResponse.setSuccess(true);
+        baseResponse.setData(bookingService.accBokingByid(id));
+        return baseResponse;
+
+//        if (bookingService.getById(id) != null){
+//            bookingService.accBokingByid(id);
+//            baseResponse.setSuccess(true);
+//            baseResponse.setMessage("Success to Acc booking ID " + id);
+//        }else {
+//            baseResponse.setSuccess(false);
+//            baseResponse.setMessage("Failed to Acc Booking");
+//            return new ResponseEntity(baseResponse, HttpStatus.BAD_REQUEST);
+//        }
+//        return new ResponseEntity(baseResponse, HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping ("/{id}")

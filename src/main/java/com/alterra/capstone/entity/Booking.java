@@ -19,7 +19,7 @@ public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_Booking", nullable = false)
-    private Integer id;
+    private Long id;
 
 //    @OneToOne
 //    @JoinColumn(name = "id_class")
