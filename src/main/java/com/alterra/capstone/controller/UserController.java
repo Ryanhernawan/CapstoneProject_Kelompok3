@@ -23,9 +23,17 @@ public class UserController {
     @GetMapping
     public ResponseEntity<BaseResponse<List<User>>> getAll(){
         BaseResponse baseResponse = new BaseResponse();
-        baseResponse.setSuccess(true);
-        baseResponse.setMessage("Get All Users");
-        baseResponse.setData(userService.getAllUser());
+        try {
+            baseResponse.setSuccess(true);
+            baseResponse.setMessage("Get All Users");
+            baseResponse.setData(userService.getAllUser());
+
+        }catch (Exception e){
+            baseResponse.setSuccess(false);
+            baseResponse.setMessage("Failed to get user by ID");
+            baseResponse.setData(null);
+        }
+
         return new ResponseEntity(baseResponse, HttpStatus.OK);
     }
 
@@ -80,36 +88,79 @@ public class UserController {
     @PostMapping("/register/superadmin")
     public ResponseEntity<BaseResponse<User>> registerSuperAdmin(@RequestBody UserPayload userPayload){
         BaseResponse baseResponse = new BaseResponse();
-        baseResponse.setSuccess(true);
-        baseResponse.setMessage("Register Super Admin");
-        baseResponse.setData(userService.registerAsSuperAdmin(userPayload));
+        if (!userPayload.getName().equals("") && userPayload.getName() != null &&
+                !userPayload.getUsername().equals("") && userPayload.getUsername() != null &&
+                !userPayload.getEmail().equals("") && userPayload.getEmail() != null &&
+                !userPayload.getContact().equals("") && userPayload.getContact() != null &&
+                !userPayload.getPassword().equals("") && userPayload.getPassword() != null
+        ){
+            baseResponse.setData(userService.registerAsSuperAdmin(userPayload));
+            baseResponse.setSuccess(true);
+            baseResponse.setMessage("Register Super Admin");
+        }else {
+            baseResponse.setData(null);
+            baseResponse.setSuccess(false);
+            baseResponse.setMessage("Failed to add Super Admin");
+            return new ResponseEntity(baseResponse, HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity(baseResponse, HttpStatus.CREATED);
     }
 
     @PostMapping("/register/admin")
     public ResponseEntity<BaseResponse<User>> registerAdmin(@RequestBody UserPayload userPayload){
         BaseResponse baseResponse = new BaseResponse();
-        baseResponse.setSuccess(true);
-        baseResponse.setMessage("Register Admin");
-        baseResponse.setData(userService.registerAsAdmin(userPayload));
+        if (!userPayload.getName().equals("") && userPayload.getName() != null &&
+                !userPayload.getUsername().equals("") && userPayload.getUsername() != null &&
+                !userPayload.getEmail().equals("") && userPayload.getEmail() != null &&
+                !userPayload.getContact().equals("") && userPayload.getContact() != null &&
+                !userPayload.getPassword().equals("") && userPayload.getPassword() != null
+        ){
+            baseResponse.setSuccess(true);
+            baseResponse.setMessage("Register Admin");
+            baseResponse.setData(userService.registerAsAdmin(userPayload));
+        }else {
+            baseResponse.setData(null);
+            baseResponse.setSuccess(false);
+            baseResponse.setMessage("Failed to add Admin");
+            return new ResponseEntity(baseResponse, HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity(baseResponse, HttpStatus.CREATED);
     }
 
     @PostMapping("/register/user")
     public ResponseEntity<BaseResponse<User>> registerUser(@RequestBody UserPayload userPayload){
         BaseResponse baseResponse = new BaseResponse();
-        baseResponse.setSuccess(true);
-        baseResponse.setMessage("Register new User");
-        baseResponse.setData(userService.registerAsUser(userPayload));
+        if (!userPayload.getName().equals("") && userPayload.getName() != null &&
+                !userPayload.getUsername().equals("") && userPayload.getUsername() != null &&
+                !userPayload.getEmail().equals("") && userPayload.getEmail() != null &&
+                !userPayload.getContact().equals("") && userPayload.getContact() != null &&
+                !userPayload.getPassword().equals("") && userPayload.getPassword() != null
+        ){
+            baseResponse.setSuccess(true);
+            baseResponse.setMessage("Register Admin");
+            baseResponse.setData(userService.registerAsUser(userPayload));
+        }else {
+            baseResponse.setData(null);
+            baseResponse.setSuccess(false);
+            baseResponse.setMessage("Failed to add Admin");
+            return new ResponseEntity(baseResponse, HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity(baseResponse, HttpStatus.CREATED);
     }
 
     @PutMapping("/update/password/{id}")
     public ResponseEntity<BaseResponse<User>> updatePassword(@PathVariable Long id, @RequestBody UserPayload payload){
         BaseResponse baseResponse = new BaseResponse();
-        baseResponse.setSuccess(true);
-        baseResponse.setMessage("Update Password");
-        baseResponse.setData(userService.updatePassword(id, payload));
+        if (!payload.getPassword().equals("") && payload.getPassword() != null) {
+            baseResponse.setSuccess(true);
+            baseResponse.setMessage("Update Password");
+            baseResponse.setData(userService.updatePassword(id, payload));
+        }else {
+            baseResponse.setData(null);
+            baseResponse.setSuccess(false);
+            baseResponse.setMessage("Failed to add Admin");
+            return new ResponseEntity(baseResponse, HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity(baseResponse, HttpStatus.OK);
     }
 
