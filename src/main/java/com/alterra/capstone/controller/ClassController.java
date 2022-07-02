@@ -132,19 +132,18 @@ public class ClassController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateClass(@PathVariable("id") Long id, ClassPayload payload){
+    public ResponseEntity<?> updateClass(@PathVariable("id") Long id, @RequestBody ClassPayload payload){
         BaseResponse<Class> baseResponse = new BaseResponse<>();
         try {
             baseResponse.setSuccess(true);
             baseResponse.setMessage("Success Update Class");
-            payload.setId(id);
             baseResponse.setData(service.updateClass(id,payload));
         }catch (Exception e){
             baseResponse.setSuccess(false);
             baseResponse.setMessage(e.getMessage());
             return new ResponseEntity(baseResponse, HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity(baseResponse, HttpStatus.NO_CONTENT);
+        return new ResponseEntity(baseResponse, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

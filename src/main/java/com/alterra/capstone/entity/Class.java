@@ -29,11 +29,7 @@ public class Class {
 //    @JoinColumn(name = "id_user", referencedColumnName = "id_user")
 //    private User user;
 
-    @ManyToMany(fetch = FetchType.LAZY,
-    cascade = {
-        CascadeType.PERSIST,
-        CascadeType.MERGE
-    })
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "class_by_user",
         joinColumns = {@JoinColumn(name = "id_class")},
         inverseJoinColumns = {@JoinColumn(name = "id_user")})

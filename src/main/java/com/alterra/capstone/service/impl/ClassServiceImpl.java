@@ -5,8 +5,10 @@ import com.alterra.capstone.payload.ClassPayload;
 import com.alterra.capstone.repository.ClassRepository;
 import com.alterra.capstone.service.ClassService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.Duration;
 import java.util.List;
@@ -14,7 +16,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ClassServiceImpl implements ClassService {
 
     private final ClassRepository repository;
@@ -22,7 +24,8 @@ public class ClassServiceImpl implements ClassService {
 
     @Override
     public List<Class> getAllClass() {
-        return repository.findAll();
+        return repository.getAllClass();
+        //return repository.findAll();
     }
 
     @Override
@@ -65,20 +68,21 @@ public class ClassServiceImpl implements ClassService {
     }
 
     @Override
-    public Class updateClass(@PathVariable Long id, ClassPayload payload) {
+    public Class updateClass(Long id, ClassPayload payload) {
         Optional<Class> classId = repository.findById(id);
         classId.ifPresent(updateClass -> {
             updateClass.setName(payload.getName());
             updateClass.setIdInstructor(payload.getIdInstructor());
             updateClass.setStartAt(payload.getStartAt());
             //end_ad 2 jam dari start_at
-            updateClass.setEndAt(payload.getStartAt().plus(Duration.ofMinutes(120)));
+            updateClass.setEndAt(payload.getEndAt());
             updateClass.setPrice(payload.getPrice());
             updateClass.setDescription(payload.getDescription());
             updateClass.setType(payload.getType());
             updateClass.setLocation(payload.getLocation());
+            repository.save(updateClass);
         });
-        return repository.getReferenceById(id);
+        return repository.getById(id);
     }
 
     @Override
