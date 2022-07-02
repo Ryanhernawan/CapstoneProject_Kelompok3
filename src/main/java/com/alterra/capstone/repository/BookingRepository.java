@@ -19,6 +19,9 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     @Query(value = "SELECT * FROM `booking` WHERE is_booked = 1", nativeQuery = true)
     List<Booking> getBookingAfterAcc();
 
+    @Query(value = "SELECT * FROM `booking` WHERE id_user = :id_user", nativeQuery = true)
+    List<Booking> getBookingByUserID(@Param("id_user") Long id);
+
     @Modifying
     @Transactional
     @Query(value = "UPDATE `class` SET `qty_users` = `qty_users` - 1 WHERE `id_class` = :classId", nativeQuery = true)

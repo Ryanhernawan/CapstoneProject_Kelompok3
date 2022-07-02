@@ -102,6 +102,7 @@ public class UserServiceImpl implements UserService {
         Optional<User> idUser = userRepository.findById(id);
         idUser.ifPresent(update -> {
             update.setPassword(userPayload.getPassword());
+            userRepository.save(update);
         });
         return userRepository.getReferenceById(id);
     }
@@ -115,6 +116,7 @@ public class UserServiceImpl implements UserService {
             updateUser.setEmail(userPayload.getEmail());
             updateUser.setContact(userPayload.getContact());
             updateUser.setPassword(userPayload.getPassword());
+            userRepository.save(updateUser);
         });
         return userRepository.getReferenceById(id);
     }
