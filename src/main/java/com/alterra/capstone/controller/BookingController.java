@@ -36,10 +36,10 @@ public class BookingController {
             baseResponse.setMessage("Get Booking Class By User ID");
             baseResponse.setData(bookingService.getClassByIdUser(id));
         }else {
-            baseResponse.setSuccess(false);
+            baseResponse.setSuccess(true);
             baseResponse.setMessage(" Id User " + id + " not Available " );
-            baseResponse.setData(null);
-            return new ResponseEntity(baseResponse, HttpStatus.BAD_REQUEST);
+            baseResponse.setData(bookingService.getClassByIdUser(id));
+            return new ResponseEntity(baseResponse, HttpStatus.OK);
         }
         return new ResponseEntity(baseResponse, HttpStatus.OK);
     }
