@@ -1,7 +1,6 @@
 package com.alterra.capstone.service.impl;
 
 import com.alterra.capstone.entity.Booking;
-import com.alterra.capstone.entity.Class;
 import com.alterra.capstone.payload.BookingPayload;
 import com.alterra.capstone.repository.BookingRepository;
 import com.alterra.capstone.repository.ClassRepository;
@@ -32,28 +31,30 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public Booking getById(@PathVariable Long id) {
         Booking booking = new Booking();
-        booking = bookingRepository.findById(id).orElse(booking);
-
-//        Optional<Booking> optionalBooking = bookingRepository.findById(id);
-//        if (optionalBooking.isEmpty()) {
-//        }
+        booking = bookingRepository.findById(id).orElse(null);
         return booking;
     }
 
     @Override
-    public List<Booking> create(BookingPayload bookingPayload) {
-        Optional<Class> sentClass = classRepository.findById(bookingPayload.getClassId().getId());
-        sentClass.ifPresent(lemaparHarga ->{
-            Integer price = lemaparHarga.getPrice();
+    public Booking create(BookingPayload bookingPayload) {
+        Booking bookingClass = new Booking();
 
-            Booking bookingClass = new Booking();
-            bookingClass.setIdUser(bookingPayload.getIdUser());
-            bookingClass.setIsBooked(false);
-            bookingClass.setTotalPrice(price);
-            bookingClass.setClassId(bookingPayload.getClassId());
-            bookingRepository.save(bookingClass);
-        });
-        return bookingRepository.findAll();
+        Integer price = bookingRepository.hargaClassByID(bookingPayload.getClassId().getId());
+
+        bookingClass.setIdUser(bookingPayload.getIdUser());
+        bookingClass.setIsBooked(false);
+        bookingClass.setTotalPrice(price);
+        bookingClass.setClassId(bookingPayload.getClassId());
+        bookingRepository.save(bookingClass);
+
+//        Optional<Class> sentClass = classRepository.findById(bookingPayload.getClassId().getId());
+//        sentClass.ifPresent(lemaparHarga ->{
+//            Integer price = lemaparHarga.getPrice();
+//            bookingClass.setTotalPrice(price);
+//            return price;
+//        });
+        return bookingRepository.save(bookingClass);
+        //return bookingRepository.findById(bookingPayload.getId());
     }
 
     @Override
@@ -75,8 +76,13 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public Booking insertAfterAcc(Long id) {
-        return null;
+    public List<Booking> getClassByIdUser(Long id_user) {
+        Booking booking = new Booking();
+        if (!bookingRepository.getBookingByUserID(id_user).isEmpty()){
+            return bookingRepository.getBookingByUserID(id_user);
+        }else {
+            return null;
+        }
     }
 
     @Override

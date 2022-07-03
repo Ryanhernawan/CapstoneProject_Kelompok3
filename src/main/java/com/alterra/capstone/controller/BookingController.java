@@ -28,6 +28,22 @@ public class BookingController {
         return ResponseEntity.ok(baseResponse);
     }
 
+    @GetMapping("/iduser/{id}")
+    public ResponseEntity<BaseResponse<List<Booking>>> getBookingByIdUser(@PathVariable("id") Long id){
+        BaseResponse baseResponse = new BaseResponse();
+        if (bookingService.getClassByIdUser(id) != null){
+            baseResponse.setSuccess(true);
+            baseResponse.setMessage("Get Booking Class By User ID");
+            baseResponse.setData(bookingService.getClassByIdUser(id));
+        }else {
+            baseResponse.setSuccess(false);
+            baseResponse.setMessage(" Id User " + id + " not Available " );
+            baseResponse.setData(null);
+            return new ResponseEntity(baseResponse, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity(baseResponse, HttpStatus.OK);
+    }
+
     @GetMapping ("/{id}")
     public ResponseEntity<BaseResponse<Booking>> BookingById(@PathVariable("id") Long id){
         BaseResponse baseResponse = new BaseResponse();
