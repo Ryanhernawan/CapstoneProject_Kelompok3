@@ -20,9 +20,6 @@ public class BookingServiceImpl implements BookingService {
     @Autowired
     private BookingRepository bookingRepository;
 
-    @Autowired
-    private ClassRepository classRepository;
-
     @Override
     public Iterable<Booking> getAll() {
         return bookingRepository.findAll();
@@ -30,9 +27,9 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public Booking getById(@PathVariable Long id) {
-        Booking booking = new Booking();
-        booking = bookingRepository.findById(id).orElse(null);
-        return booking;
+//        Booking booking = new Booking();
+//        booking = bookingRepository.findById(id).orElse(null);
+        return bookingRepository.findById(id).orElse(null);
     }
 
     @Override
