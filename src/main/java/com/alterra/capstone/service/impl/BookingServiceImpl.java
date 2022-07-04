@@ -45,7 +45,6 @@ public class BookingServiceImpl implements BookingService {
         bookingClass.setIsBooked(false);
         bookingClass.setTotalPrice(price);
         bookingClass.setClassId(bookingPayload.getClassId());
-        bookingRepository.save(bookingClass);
         return bookingRepository.save(bookingClass);
     }
 
