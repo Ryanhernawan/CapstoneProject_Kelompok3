@@ -46,15 +46,7 @@ public class BookingServiceImpl implements BookingService {
         bookingClass.setTotalPrice(price);
         bookingClass.setClassId(bookingPayload.getClassId());
         bookingRepository.save(bookingClass);
-
-//        Optional<Class> sentClass = classRepository.findById(bookingPayload.getClassId().getId());
-//        sentClass.ifPresent(lemaparHarga ->{
-//            Integer price = lemaparHarga.getPrice();
-//            bookingClass.setTotalPrice(price);
-//            return price;
-//        });
         return bookingRepository.save(bookingClass);
-        //return bookingRepository.findById(bookingPayload.getId());
     }
 
     @Override
