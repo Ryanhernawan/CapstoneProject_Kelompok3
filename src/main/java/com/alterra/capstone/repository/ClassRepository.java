@@ -19,11 +19,11 @@ public interface ClassRepository extends JpaRepository<Class, Long> {
     @Query(value = "SELECT c FROM Class c")
     List<Class> getAllClass();
 
-    @Query(value = "SELECT c FROM  Class c WHERE c.type='offline'")
+    @Query(value = "SELECT c FROM  Class c WHERE c.type='Offline'")
     List<Class> getClassTypeOffline();
 
     // query find class by type = online
-    @Query(value = "SELECT c FROM  Class c WHERE c.type='online'")
+    @Query(value = "SELECT c FROM  Class c WHERE c.type='Online'")
     List<Class> getClassTypeOnline();
 
     // query count user on class

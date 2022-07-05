@@ -52,6 +52,7 @@ public class UserServiceImpl implements UserService {
 
         user.setName(userPayload.getName());
         user.setUsername(userPayload.getUsername());
+        user.setAddress(userPayload.getAddress());
         user.setEmail(userPayload.getEmail());
         user.setContact(userPayload.getContact());
         user.setPassword(userPayload.getPassword());
@@ -101,6 +102,11 @@ public class UserServiceImpl implements UserService {
     public User updatePassword(@PathVariable Long id, UserPayload userPayload) {
         Optional<User> idUser = userRepository.findById(id);
         idUser.ifPresent(update -> {
+            update.setName(userPayload.getName());
+            update.setEmail(userPayload.getEmail());
+            update.setAddress(userPayload.getAddress());
+            update.setContact(userPayload.getContact());
+            update.setUsername(userPayload.getUsername());
             update.setPassword(userPayload.getPassword());
             userRepository.save(update);
         });
