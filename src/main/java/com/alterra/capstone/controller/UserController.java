@@ -155,10 +155,11 @@ public class UserController {
             baseResponse.setSuccess(true);
             baseResponse.setMessage("Update Password");
             baseResponse.setData(userService.updatePassword(id, payload));
-        }else {
+        }
+        else {
             baseResponse.setData(null);
             baseResponse.setSuccess(false);
-            baseResponse.setMessage("Failed to add Admin");
+            baseResponse.setMessage("Failed to update Password");
             return new ResponseEntity(baseResponse, HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity(baseResponse, HttpStatus.OK);

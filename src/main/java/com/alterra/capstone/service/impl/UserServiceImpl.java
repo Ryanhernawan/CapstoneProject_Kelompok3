@@ -88,28 +88,39 @@ public class UserServiceImpl implements UserService {
         return userRepository.getUserAsUser();
     }
 
+    @Override
+    public Boolean idIsPresent(@PathVariable Long id) {
+        if (userRepository.findById(id).isPresent()){
+            return true;
+        }else {
+            return true;
+        }
+    }
 
     @Override
     public User getUsersById(@PathVariable Long id) {
-        User user = new User();
-        user = userRepository.findById(id).orElse(null);
-        return user;
+        return userRepository.findById(id).orElse(null);
     }
 
     //---------PR------------
     // update password sebelum login. pakai email untuk konfirmasi
     @Override
     public User updatePassword(@PathVariable Long id, UserPayload userPayload) {
-        Optional<User> idUser = userRepository.findById(id);
-        idUser.ifPresent(update -> {
-            update.setName(userPayload.getName());
-            update.setEmail(userPayload.getEmail());
-            update.setAddress(userPayload.getAddress());
-            update.setContact(userPayload.getContact());
-            update.setUsername(userPayload.getUsername());
-            update.setPassword(userPayload.getPassword());
-            userRepository.save(update);
-        });
+        User updateUser = getUsersById(id);
+        try {
+            Optional<User> idUser = userRepository.findById(id);
+            idUser.ifPresent(update -> {
+                update.setName(updateUser.getName());
+                update.setEmail(updateUser.getEmail());
+                update.setAddress(updateUser.getAddress());
+                update.setContact(updateUser.getContact());
+                update.setUsername(updateUser.getUsername());
+                update.setPassword(userPayload.getPassword());
+                userRepository.save(update);
+            });
+        }catch (Exception e){
+            return null;
+        }
         return userRepository.getReferenceById(id);
     }
 

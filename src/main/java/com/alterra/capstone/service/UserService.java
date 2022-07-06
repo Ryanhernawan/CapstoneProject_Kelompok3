@@ -16,5 +16,6 @@ public interface UserService {
     List<User> getUserByRoleAdmin();
     List<User> getUserByRoleSuperAdmin();
     List<User> getUserByRoleUser();
+    Boolean idIsPresent(Long id);
     void deleteUser(Long id);
 }
