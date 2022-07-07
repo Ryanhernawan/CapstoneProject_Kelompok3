@@ -68,6 +68,9 @@ public class UserServiceImpl implements UserService {
     ////////////////////////______________User Service_____________////////////////////////
     @Override
     public User registerAsUser(UserPayload userPayload) {
+//        jika email sudah ada di data maka tidak bisa daftar
+//        -find email. cek
+
         User user = new User();
 
         Role roleAdmin = new Role();
@@ -89,9 +92,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User emailUser(String email) {
+        return userRepository.getEmail(email);
+    }
+
+    @Override
     public Boolean idIsPresent(@PathVariable Long id) {
         if (userRepository.findById(id).isPresent()){
-            return true;
+            return false;
         }else {
             return true;
         }

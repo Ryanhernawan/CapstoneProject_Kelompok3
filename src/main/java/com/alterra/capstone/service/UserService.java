@@ -16,6 +16,7 @@ public interface UserService {
     List<User> getUserByRoleAdmin();
     List<User> getUserByRoleSuperAdmin();
     List<User> getUserByRoleUser();
+    User emailUser(String email);
     Boolean idIsPresent(Long id);
     void deleteUser(Long id);
 }
