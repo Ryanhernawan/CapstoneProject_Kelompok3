@@ -151,7 +151,7 @@ public class UserController {
     @PutMapping("/update/password/{id}")
     public ResponseEntity<BaseResponse<User>> updatePassword(@PathVariable Long id, @RequestBody UserPayload payload){
         BaseResponse baseResponse = new BaseResponse();
-        if (!payload.getPassword().equals("") && payload.getPassword() != null) {
+        if ( userService.updatePassword(id, payload) != null && !payload.getPassword().equals("") && payload.getPassword() != null) {
             baseResponse.setSuccess(true);
             baseResponse.setMessage("Update Password");
             baseResponse.setData(userService.updatePassword(id, payload));
