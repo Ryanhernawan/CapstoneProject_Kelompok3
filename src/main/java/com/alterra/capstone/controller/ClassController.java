@@ -102,14 +102,18 @@ public class ClassController {
     @PostMapping("/online")
     public ResponseEntity<?> createNewClass(@RequestBody ClassPayload payload){
         BaseResponse<Class> baseResponse = new BaseResponse<>();
-        try {
+        if (payload.getName() != null &&
+                !payload.getIdInstructor().getId().equals("") && payload.getIdInstructor().getId() != null &&
+                !payload.getStartAt().equals("") && payload.getStartAt() != null &&
+                !payload.getDescription().equals("") && payload.getDescription() != null &&
+                !payload.getPrice().equals("") && payload.getPrice() != null &&
+                !payload.getLocation().equals("") && payload.getLocation() != null){
             baseResponse.setSuccess(true);
             baseResponse.setMessage("Success Create New Online Class");
             baseResponse.setData(service.createOnlineClass(payload));
-        }
-        catch (Exception e){
+        }else {
             baseResponse.setSuccess(false);
-            baseResponse.setMessage(e.getMessage());
+            baseResponse.setMessage("Failed to Create Online Class");
             return new ResponseEntity(baseResponse, HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity(baseResponse, HttpStatus.CREATED);
@@ -118,16 +122,20 @@ public class ClassController {
     @PostMapping("/offline")
     public ResponseEntity<?> createClassOffline(@RequestBody ClassPayload payload){
         BaseResponse<Class> baseResponse = new BaseResponse<>();
-        try {
+        if (!payload.getName().equals("") && payload.getName() != null &&
+                !payload.getIdInstructor().getId().equals("") && payload.getIdInstructor().getId() != null &&
+                !payload.getStartAt().equals("") && payload.getStartAt() != null &&
+                !payload.getDescription().equals("") && payload.getDescription() != null &&
+                !payload.getPrice().equals("") && payload.getPrice() != null &&
+                !payload.getLocation().equals("") && payload.getLocation() != null){
             baseResponse.setSuccess(true);
-            baseResponse.setMessage("Success Create New Offline Class");
+            baseResponse.setMessage("Success Create New Online Class");
             baseResponse.setData(service.createOfflineClass(payload));
-        }catch (Exception e){
+        }else {
             baseResponse.setSuccess(false);
-            baseResponse.setMessage(e.getMessage());
+            baseResponse.setMessage("Failed to Create Online Class");
             return new ResponseEntity(baseResponse, HttpStatus.BAD_REQUEST);
         }
-
         return new ResponseEntity(baseResponse, HttpStatus.CREATED);
     }
 
