@@ -17,7 +17,7 @@ public class CapstoneProjectApplication {
 						allowedOrigins("http://localhost:3000").
 						allowedOrigins("http://react-front-end-capstone-kel-3-git-fetchdata-zaidantr.vercel.app").
 						allowedOrigins("http://react-front-end-capstone-kel-3.vercel.app").
-						allowCredentials(true).
+						allowCredentials(false).
 						allowedMethods("GET", "PUT", "POST", "PATCH", "DELETE", "OPTIONS");
 			}
 		};
