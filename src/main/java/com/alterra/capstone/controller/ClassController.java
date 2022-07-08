@@ -77,6 +77,7 @@ public class ClassController {
     }
 
     // GET CLASS TYPE OFFLINE
+    @CrossOrigin
     @GetMapping("/offline")
     public ResponseEntity<?> getClassTypeOffline(){
         BaseResponse<List<Class>> baseResponse = new BaseResponse<>();

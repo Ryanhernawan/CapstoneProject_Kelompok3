@@ -14,13 +14,11 @@ public class CapstoneProjectApplication {
 			@Override
 			public void addCorsMappings(CorsRegistry registry){
 				registry.addMapping("/**").
-						allowedOrigins("*").
+						allowedOrigins("http://localhost:3000").
+						allowedOrigins("http://react-front-end-capstone-kel-3-git-fetchdata-zaidantr.vercel.app").
+						allowedOrigins("http://react-front-end-capstone-kel-3.vercel.app").
 						allowCredentials(true).
-						allowedMethods("GET", "PUT", "POST", "DELETE");
-
-				//						allowedOrigins("http://localhost:3000").
-//						allowedOrigins("http://react-front-end-capstone-kel-3-git-fetchdata-zaidantr.vercel.app").
-//						allowedOrigins("http://react-front-end-capstone-kel-3.vercel.app").
+						allowedMethods("GET", "PUT", "POST", "PATCH", "DELETE", "OPTIONS");
 			}
 		};
 	}
