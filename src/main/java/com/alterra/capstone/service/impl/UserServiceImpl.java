@@ -2,22 +2,13 @@ package com.alterra.capstone.service.impl;
 
 import com.alterra.capstone.entity.Role;
 import com.alterra.capstone.entity.User;
-import com.alterra.capstone.payload.TokenResponse;
 import com.alterra.capstone.payload.UserPayload;
 import com.alterra.capstone.repository.UserRepository;
-import com.alterra.capstone.security.JwtProvider;
 import com.alterra.capstone.service.UserService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,18 +23,15 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private final UserRepository userRepository;
     private final AuthenticationManager authenticationManager;
-    private final JwtProvider jwtProvider;
     private final PasswordEncoder passwordEncoder;
 
     public UserServiceImpl(
             @Lazy UserRepository userRepository,
             @Lazy AuthenticationManager authenticationManager,
-            @Lazy JwtProvider jwtProvider,
             @Lazy PasswordEncoder passwordEncoder)
     {
         this.userRepository = userRepository;
         this.authenticationManager = authenticationManager;
-        this.jwtProvider = jwtProvider;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -76,7 +64,6 @@ public class UserServiceImpl implements UserService {
 
         Role roleAdmin = new Role();
         roleAdmin.setId(2L);
-        user.setActive(true);
         user.setName(userPayload.getName());
         user.setUsername(userPayload.getUsername());
         user.setAddress(userPayload.getAddress());
@@ -103,8 +90,6 @@ public class UserServiceImpl implements UserService {
         Role roleAdmin = new Role();
         roleAdmin.setId(3L);
 
-        user.setActive(true);
-
         user.setName(userPayload.getName());
         user.setUsername(userPayload.getUsername());
         user.setAddress(userPayload.getAddress());
@@ -118,29 +103,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getUserByRoleUser() {
         return userRepository.getUserAsUser();
-    }
-
-    @Override
-    public TokenResponse generateToken(UserPayload userPayload) {
-        try {
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            userPayload.getUsername(),
-                            userPayload.getPassword()
-                    )
-            );
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            String jwt = jwtProvider.generateToken(authentication);
-//            TokenResponse tokenResponse = new TokenResponse();
-//            tokenResponse.setToken(jwt);
-            return new TokenResponse(jwt);
-        } catch (BadCredentialsException e) {
-            log.error("Bad Credentials", e);
-            throw new RuntimeException(e.getMessage(), e);
-        }catch (Exception ex){
-            log.error(ex.getMessage(), ex);
-            throw new RuntimeException(ex.getMessage(), ex);
-        }
     }
 
     @Override
@@ -209,13 +171,5 @@ public class UserServiceImpl implements UserService {
         userId.ifPresent(action -> {
             userRepository.delete(action);
         });
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.getDisticntTopByUsername(username);
-        if (user == null)
-            throw new UsernameNotFoundException("Username not Found");
-        return user;
     }
 }
