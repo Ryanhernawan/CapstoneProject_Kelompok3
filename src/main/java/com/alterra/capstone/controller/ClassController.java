@@ -143,16 +143,32 @@ public class ClassController {
     @PutMapping("/{id}")
     public ResponseEntity<?> updateClass(@PathVariable("id") Long id, @RequestBody ClassPayload payload){
         BaseResponse<Class> baseResponse = new BaseResponse<>();
-        try {
+        if (payload.getName() != null &&
+                !payload.getIdInstructor().getId().equals("") && payload.getIdInstructor().getId() != null &&
+                payload.getStartAt() != null &&
+                !payload.getDescription().equals("") && payload.getDescription() != null &&
+                payload.getPrice() != null &&
+                !payload.getLocation().equals("") && payload.getLocation() != null){
             baseResponse.setSuccess(true);
-            baseResponse.setMessage("Success Update Class");
-            baseResponse.setData(service.updateClass(id,payload));
-        }catch (Exception e){
+            baseResponse.setMessage("Success Create New Online Class");
+            baseResponse.setData(service.createOfflineClass(payload));
+        }else {
             baseResponse.setSuccess(false);
-            baseResponse.setMessage(e.getMessage());
+            baseResponse.setMessage("Failed to Create Online Class");
             return new ResponseEntity(baseResponse, HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity(baseResponse, HttpStatus.OK);
+        return new ResponseEntity(baseResponse, HttpStatus.CREATED);
+
+//        try {
+//            baseResponse.setSuccess(true);
+//            baseResponse.setMessage("Success Update Class");
+//            baseResponse.setData(service.updateClass(id,payload));
+//        }catch (Exception e){
+//            baseResponse.setSuccess(false);
+//            baseResponse.setMessage(e.getMessage());
+//            return new ResponseEntity(baseResponse, HttpStatus.BAD_REQUEST);
+//        }
+//        return new ResponseEntity(baseResponse, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

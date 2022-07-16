@@ -95,11 +95,6 @@ public class ClassServiceImpl implements ClassService {
         return null;
     }
 
-//    @Override
-//    public List<Class> findClassByUser_Id(@PathVariable Long user) {
-//        return repository.findClassByUser_Id(user);
-//    }
-
     @Override
     public List<Class> getClassTypeOffline() {
         return repository.getClassTypeOffline();
