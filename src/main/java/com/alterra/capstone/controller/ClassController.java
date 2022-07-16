@@ -136,6 +136,7 @@ public class ClassController {
                 payload.getStartAt() != null &&
                 !payload.getDescription().equals("") && payload.getDescription() != null &&
                 payload.getPrice() != null &&
+                !payload.getType().equals("") && payload.getType() != null &&
                 !payload.getLocation().equals("") && payload.getLocation() != null){
             baseResponse.setSuccess(true);
             baseResponse.setMessage("Success update Class");
