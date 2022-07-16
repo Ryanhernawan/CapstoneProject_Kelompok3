@@ -136,12 +136,12 @@ public class UserController {
                 !userPayload.getPassword().equals("") && userPayload.getPassword() != null
         ){
             baseResponse.setSuccess(true);
-            baseResponse.setMessage("Register Admin");
+            baseResponse.setMessage("Register User");
             baseResponse.setData(userService.registerAsUser(userPayload));
         }else {
             baseResponse.setData(null);
             baseResponse.setSuccess(false);
-            baseResponse.setMessage("Failed to add Admin");
+            baseResponse.setMessage("Failed to add User");
             return new ResponseEntity(baseResponse, HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity(baseResponse, HttpStatus.CREATED);
@@ -177,12 +177,12 @@ public class UserController {
                 !userPayload.getPassword().equals("") && userPayload.getPassword() != null
         ){
             baseResponse.setSuccess(true);
-            baseResponse.setMessage("Register Admin");
+            baseResponse.setMessage("update User success");
             baseResponse.setData(userService.updateUser(id ,userPayload));
         }else {
             baseResponse.setData(null);
             baseResponse.setSuccess(false);
-            baseResponse.setMessage("Failed to add Admin");
+            baseResponse.setMessage("Failed to update");
             return new ResponseEntity(baseResponse, HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity(baseResponse, HttpStatus.OK);
