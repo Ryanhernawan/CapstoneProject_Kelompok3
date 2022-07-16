@@ -114,9 +114,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public Boolean idIsPresent(@PathVariable Long id) {
         if (userRepository.findById(id).isPresent()){
-            return false;
-        }else {
             return true;
+        }else {
+            return false;
         }
     }
 

@@ -187,4 +187,19 @@ public class UserController {
         }
         return new ResponseEntity(baseResponse, HttpStatus.OK);
     }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<BaseResponse<User>> deleteUser(@PathVariable Long id){
+        BaseResponse baseResponse = new BaseResponse();
+        if (userService.idIsPresent(id) != false){
+            userService.deleteUser(id);
+            baseResponse.setMessage("Success delete User");
+            baseResponse.setSuccess(true);
+        }else {
+            baseResponse.setMessage("Id not found");
+            baseResponse.setSuccess(false);
+            return new ResponseEntity(baseResponse, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity(baseResponse, HttpStatus.ACCEPTED);
+    }
 }
