@@ -172,7 +172,7 @@ public class UserController {
         BaseResponse baseResponse = new BaseResponse();
         if (!userPayload.getName().equals("") && userPayload.getName() != null &&
                 !userPayload.getUsername().equals("") && userPayload.getUsername() != null &&
-                !userPayload.getEmail().equals("") && userPayload.getEmail() != null &&
+                userPayload.getEmail() != null &&
                 !userPayload.getContact().equals("") && userPayload.getContact() != null &&
                 !userPayload.getPassword().equals("") && userPayload.getPassword() != null
         ){
