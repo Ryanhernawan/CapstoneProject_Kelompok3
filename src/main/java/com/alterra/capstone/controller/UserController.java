@@ -5,7 +5,6 @@ import com.alterra.capstone.payload.UserPayload;
 import com.alterra.capstone.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -171,9 +170,21 @@ public class UserController {
     @PutMapping("{id}")
     public ResponseEntity<BaseResponse<User>> editUser(@PathVariable Long id, @RequestBody UserPayload userPayload){
         BaseResponse baseResponse = new BaseResponse();
-        baseResponse.setSuccess(true);
-        baseResponse.setMessage("Edit User " + id);
-        baseResponse.setData(userService.updateUser(id, userPayload));
+        if (!userPayload.getName().equals("") && userPayload.getName() != null &&
+                !userPayload.getUsername().equals("") && userPayload.getUsername() != null &&
+                !userPayload.getEmail().equals("") && userPayload.getEmail() != null &&
+                !userPayload.getContact().equals("") && userPayload.getContact() != null &&
+                !userPayload.getPassword().equals("") && userPayload.getPassword() != null
+        ){
+            baseResponse.setSuccess(true);
+            baseResponse.setMessage("Register Admin");
+            baseResponse.setData(userService.updateUser(id ,userPayload));
+        }else {
+            baseResponse.setData(null);
+            baseResponse.setSuccess(false);
+            baseResponse.setMessage("Failed to add Admin");
+            return new ResponseEntity(baseResponse, HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity(baseResponse, HttpStatus.OK);
     }
 }
