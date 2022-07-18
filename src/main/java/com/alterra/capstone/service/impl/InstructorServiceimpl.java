@@ -14,7 +14,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class InstructorServiceimpl implements InstructorService {
     @Autowired
-    private InstructorRepository instructorRepository;
+    private final InstructorRepository instructorRepository;
 
     @Override
     public Iterable<Instructor> getAll() {
@@ -22,7 +22,7 @@ public class InstructorServiceimpl implements InstructorService {
     }
 
     @Override
-    public Instructor getById(Integer id) {
+    public Instructor getById(Long id) {
         Optional<Instructor> optionalInstructor = instructorRepository.findById(id);
         if (optionalInstructor.isEmpty()) {
         }
@@ -35,7 +35,7 @@ public class InstructorServiceimpl implements InstructorService {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Long id) {
         instructorRepository.deleteById(id);
     }
 

@@ -4,13 +4,14 @@ import com.alterra.capstone.entity.User;
 import com.alterra.capstone.payload.UserPayload;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
     User registerAsSuperAdmin(UserPayload userPayload);
     User registerAsAdmin(UserPayload userPayload);
     User registerAsUser(UserPayload userPayload);
     User updatePassword(Long id, UserPayload userPayload);
-    User updateUser(Long id, UserPayload userPayload);
+    Optional<User> updateUser(Long id, UserPayload userPayload);
     List<User> getAllUser();
     User getUsersById(Long id);
     List<User> getUserByRoleAdmin();

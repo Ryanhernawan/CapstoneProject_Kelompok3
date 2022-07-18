@@ -29,7 +29,7 @@ public class RoleServiceimpl implements RoleService {
 //    }
 
     @Override
-    public Role getById(Integer id) {
+    public Role getById(Long id) {
         Role role = new Role();
         role = roleRepository.findById(id).orElse(role);
         return role;
@@ -43,7 +43,7 @@ public class RoleServiceimpl implements RoleService {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Long id) {
         roleRepository.deleteById(id);
     }
 }

@@ -29,7 +29,7 @@ public class InstructorController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Instructor> InstructorById(@PathVariable("id") Integer id) {
+    public ResponseEntity<Instructor> InstructorById(@PathVariable("id") Long id) {
         BaseResponse baseResponse = new BaseResponse();
         if (instructorService.getById(id) != null) {
             baseResponse.setSuccess(true);
@@ -52,7 +52,7 @@ public class InstructorController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteInstructor(@PathVariable("id") Integer id) {
+    public ResponseEntity<?> deleteInstructor(@PathVariable("id") Long id) {
         instructorService.delete(id);
         return ResponseEntity.notFound().build();
     }

@@ -148,7 +148,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(@PathVariable Long id, UserPayload userPayload) {
+    public Optional<User> updateUser(@PathVariable Long id, UserPayload userPayload) {
         Optional<User> userID =userRepository.findById(id);
         userID.ifPresent(updateUser ->{
             updateUser.setName(userPayload.getName());
@@ -158,7 +158,7 @@ public class UserServiceImpl implements UserService {
             updateUser.setPassword(userPayload.getPassword());
             userRepository.save(updateUser);
         });
-        return userRepository.getReferenceById(id);
+        return userRepository.findById(id);
     }
 
     @Override

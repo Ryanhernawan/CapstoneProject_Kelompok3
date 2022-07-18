@@ -5,7 +5,7 @@ import org.hibernate.mapping.List;
 
 public interface InstructorService {
     Iterable<Instructor> getAll();
-    Instructor getById (Integer id);
+    Instructor getById (Long id);
     Instructor create (Instructor instructor);
-    void delete(Integer id);
+    void delete(Long id);
 }

@@ -1,6 +1,7 @@
 package com.alterra.capstone.payload;
 
 import com.alterra.capstone.entity.Class;
+import com.alterra.capstone.entity.Role;
 import lombok.Data;
 
 import java.time.OffsetDateTime;
@@ -15,7 +16,7 @@ public class UserPayload {
     private String contact;
     private String username;
     private String password;
-    private Integer id_role;
+    private Role role;
     private OffsetDateTime created_at;
     private OffsetDateTime updated_at;
 

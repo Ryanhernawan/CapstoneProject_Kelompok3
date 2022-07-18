@@ -13,7 +13,7 @@ import com.alterra.capstone.service.RoleService;
 @RequiredArgsConstructor
 public class RoleController {
     @Autowired
-    private RoleService roleService;
+    private final RoleService roleService;
 
     @GetMapping
     public BaseResponse<Iterable<Role>> getAll() {
@@ -25,7 +25,7 @@ public class RoleController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<BaseResponse<Role>> RoleById(@PathVariable("id") Integer id) {
+    public ResponseEntity<BaseResponse<Role>> RoleById(@PathVariable("id") Long id) {
         BaseResponse baseResponse = new BaseResponse();
         baseResponse.setSuccess(true);
         baseResponse.setMessage("Get Role By id");
@@ -44,7 +44,7 @@ public class RoleController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteRole(@PathVariable("id") Integer id){
+    public ResponseEntity<?> deleteRole(@PathVariable("id") Long id){
         roleService.delete(id);
         return ResponseEntity.notFound().build();
     }
